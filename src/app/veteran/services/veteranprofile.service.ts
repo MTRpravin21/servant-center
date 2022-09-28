@@ -17,6 +17,7 @@ export class VeteranprofileService {
 
   private commonUrl=env.localUrl;
   private veteranProfileUpdateAPI=environment.serviceUrl.veteranProfileUpdateUser;
+  private profileImgUpdateAPI=environment.serviceUrl.updateProfileImage;
 
   public getProfileData(
     endPoint: number, 
@@ -48,6 +49,10 @@ export class VeteranprofileService {
 
   imageUpload(imageForm: FormData) {
     console.log('image uploading',imageForm);
-    return this.http.post('http://localhost:3000/api/v1/upload', imageForm);
+    if (this.isDev) {
+      return this.http.post(this.commonUrl+'api/v2/upload/', imageForm);
+    } else {
+      return this.http.post(this.profileImgUpdateAPI, imageForm);
+    }  
    }
 }

@@ -29,7 +29,7 @@
           <div class="p-field-checkbox" *ngFor="let generalAppearance of generalAppearanceList">
             <label for="{{generalAppearance.value}}--answered">{{generalAppearance.label}}</label>
             <p-checkbox inputId="{{generalAppearance.value}}--answered" [name]=generalAppearance.value
-              [value]=generalAppearance.value formControlName="generalAppearance" [(ngModel)]="generalAppearanceList.generalAppearance"></p-checkbox>
+              [value]=generalAppearance.value formControlName="generalAppearance" [(ngModel)]="selectedgeneralAppearance"></p-checkbox>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           <div class="p-field-checkbox" *ngFor="let thoughtForum of thoughtForumList">
             <label for="{{thoughtForum.value}}--answered">{{thoughtForum.label}}</label>
             <p-checkbox inputId="{{thoughtForum.value}}--answered" [name]=thoughtForum.value [value]=thoughtForum.value
-              formControlName="thoughtForum" [(ngModel)]="thoughtForumList.thoughtForum"></p-checkbox>
+              formControlName="thoughtForum" [(ngModel)]="selectdeThoughtForum"></p-checkbox>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
           <div class="p-field-checkbox" *ngFor="let mood of moodList">
             <label for="{{mood.value}}--answered">{{mood.label}}</label>
             <p-checkbox inputId="{{mood.value}}--answered" [name]=mood.value [value]=mood.value
-              formControlName="answeredByClient"></p-checkbox>
+              formControlName="answeredByClient" [(ngModel)]="answeredByClient"></p-checkbox>
           </div>
         </div>
         <div class="p-col-12 p-formgroup-inline">
@@ -58,7 +58,7 @@
           <div class="p-field-checkbox" *ngFor="let mood of moodList">
             <label for="{{mood.value}}--answered">{{mood.label}}</label>
             <p-checkbox inputId="{{mood.value}}--answered" [name]=mood.value [value]=mood.value
-              formControlName="observedByInterviewer"></p-checkbox>
+              formControlName="observedByInterviewer" [(ngModel)]="observedByInterviewer"></p-checkbox>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
           <div class="p-field-checkbox" *ngFor="let affect of affectList">
             <label for="{{affect.value}}--answered">{{affect.label}}</label>
             <p-checkbox inputId="{{affect.value}}--answered" [name]=affect.value [value]=affect.value
-              formArrayName="affect"></p-checkbox>
+              formControlName="affect" [(ngModel)]="selectedAffect"></p-checkbox>
           </div>
         </div>
       </div>

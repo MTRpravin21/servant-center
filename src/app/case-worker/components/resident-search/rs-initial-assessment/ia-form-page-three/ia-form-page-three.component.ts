@@ -16,7 +16,7 @@ export class IaFormPageThreeComponent implements OnInit {
   mentalStatusAssessment!: FormGroup;
   medicalInformation!: FormGroup;
   ideation!: FormGroup;
-  generalAppearanceList = [
+  generalAppearanceList: any = [
     { label: 'Well Groomed', value: 'well groomed' },
     { label: 'Dirty', value: 'dirty' },
     { label: 'Neat', value: 'neat' },
@@ -25,8 +25,8 @@ export class IaFormPageThreeComponent implements OnInit {
     { label: 'Slim', value: 'slim' },
     { label: 'Obese', value: 'obese' },
   ];
-
-  thoughtForumList = [
+selectedgeneralAppearance: any []= [];
+  thoughtForumList: any = [
     { label: 'Logical', value: 'logical' },
     { label: 'Coherent', value: 'coherent' },
     { label: 'Relevant', value: 'relevant' },
@@ -36,7 +36,7 @@ export class IaFormPageThreeComponent implements OnInit {
     { label: 'Flight of Ideas', value: 'flight of ideas' },
     { label: 'Thought blocking', value: 'Thought blocking' },
   ];
-
+selectdeThoughtForum: any []= [];
   moodList = [
     { label: 'Depressed', value: 'depressed' },
     { label: 'Elated', value: 'elated' },
@@ -44,7 +44,8 @@ export class IaFormPageThreeComponent implements OnInit {
     { label: 'Happy', value: 'happy' },
     { label: 'Neutral', value: 'neutral' },
   ];
-
+answeredByClient: any [] = [];
+observedByInterviewer: any []= [];
   affectList = [
     { label: 'Appropriate', value: 'appropriate' },
     { label: 'Fearful', value: 'fearful' },
@@ -54,6 +55,7 @@ export class IaFormPageThreeComponent implements OnInit {
     { label: 'Liable', value: 'liable' },
     { label: 'Inappropriate', value: 'inappropriate' },
   ];
+  selectedAffect: any [] = [];
 
   ideationList = [
     { label: 'Thoughts of Suicide', key: 'thoughtsOfSuicide' },
@@ -93,13 +95,13 @@ export class IaFormPageThreeComponent implements OnInit {
         place: [''],
         person: [''],
       }),
-      generalAppearance: [],
-      thoughtForum: [''],
+      generalAppearance: [this.selectedgeneralAppearance, Validators.required],
+      thoughtForum: [this.selectdeThoughtForum, Validators.required],
       mood: this.fb.group({
-        answeredByClient: [''],
-        observedByInterviewer: [''],
+        answeredByClient: [this.answeredByClient, Validators.required],
+        observedByInterviewer: [this.observedByInterviewer, Validators.required],
       }),
-      affect:new FormArray([]),
+      affect:[this.selectedAffect, Validators.required],
       ideation: this.ideation,
       memory: this.fb.group({
         recentMemory: [],

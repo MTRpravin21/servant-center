@@ -15,10 +15,18 @@ export class IaPage5Service {
   private commonUrl=environment.localUrl;
   private isDev = isDevMode();
 
+  public getInitialTreatmentGoalsPage5( endPoint: number): Observable<any> {
+    if (this.isDev){
+    return this.restcs.get(this.commonUrl+'initialAssessment/page-5/'+endPoint);
+    } else{
+      //env api goes here
+      return this.restcs.post('api goes here');
+    }
+}
 
   public initialTreatmentGoalsPage5(data:any): Observable<any> {
     if (this.isDev){
-    return this.restcs.post(this.commonUrl+'initialAssessment/page-5',data);
+      return this.restcs.post(this.commonUrl+'saveInitialAssessment/page-5/',data);
     } else{
       //env api goes here
       return this.restcs.post('api goes here',data);

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IaPage5Service } from "src/app/case-worker/services/ia-page5.service";
+import { ClipBoardService } from 'src/app/shared/services/clip-board.service';
+
 @Component({
   selector: 'app-ia-form-page-five',
   templateUrl: './ia-form-page-five.component.html',
@@ -11,9 +13,20 @@ export class IaFormPageFiveComponent implements OnInit {
   page5Form!: FormGroup;
   preliminaryTreatmentGoals!: FormGroup;
   progressNote: any;
-  constructor(private fb: FormBuilder, private router: Router, private service: IaPage5Service ) {
+  selectedVetId!: number;
+  shortTerm:any;
+  data: any;
 
-   }
+  constructor(
+    private fb: FormBuilder,
+     private router: Router,
+      private service: IaPage5Service,
+      private cacheData: ClipBoardService
+       )
+     {
+    this.selectedVetId = this.cacheData.get('selectedResidentVeteranId');
+    this.setForm();
+     }
 
   ngOnInit(): void {
     this.initializeFormGroups();
@@ -30,7 +43,28 @@ export class IaFormPageFiveComponent implements OnInit {
       supports: ['', Validators.required],
       additionalComments: ['', Validators.required]
     });
-    this.buildForm();
+  //  this.buildForm();
+  }
+  setForm(){
+    this.service.getInitialTreatmentGoalsPage5(this.selectedVetId).subscribe((res)=>{
+      this.data= res[0];
+      console.log("PG 5 -",this.data);
+      
+      this.buildForm();
+      this.preliminaryTreatmentGoals.patchValue(
+        {
+          shortTermGoals:this.data.goal_plan_short_term,
+          longTermGoals:this.data.goal_plan_long_term,
+          strengthAndResources:this.data.strengths,
+          supports: this.data.supports,
+          additionalComments: this.data.notes,
+        }
+      )
+      console.log("page 5 Data:",this.data);
+      
+    }
+    );
+      
   }
 
   buildForm() {

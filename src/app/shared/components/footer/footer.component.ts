@@ -11,4 +11,7 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     console.log('footer component');
   }
+  onOpenWhatsApp(){
+   window.open('https://wa.me/919445108135'); 
+  }
 }

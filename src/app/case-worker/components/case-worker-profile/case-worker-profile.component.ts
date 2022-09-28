@@ -13,6 +13,8 @@ export class CaseWorkerProfileComponent {
   public caseWorker: any;
   public userInfo: any;
   username!: string;
+  public imageObj!: File;
+  public imageUrl!: string;
   @Input() public profilePic!: string;
   caseWorkerId: any;
   @Input() public nickName!: string;
@@ -69,5 +71,19 @@ export class CaseWorkerProfileComponent {
   }
   ngOnInit():void{
     document.getElementById("overlay")!.style.display="block";
+  }
+  onImagePicked(imageInput: HTMLInputElement): void {
+    console.log('image upload ******', imageInput.files![0]);
+    const FILE:File = imageInput.files![0];
+    this.imageObj = FILE;
+  }
+
+  onImageUpload() {
+    let imageForm = new FormData();
+    imageForm.append('image', this.imageObj);
+    this.service.imageUpload(imageForm).subscribe((res) => {
+      //this.imageUrl = res['image'];
+      console.log('uploaded successfully');
+    });
   }
 }

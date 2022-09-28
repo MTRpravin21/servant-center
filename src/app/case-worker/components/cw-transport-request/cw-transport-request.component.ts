@@ -77,6 +77,7 @@ export class CwTransportRequestComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.onWindowResize();
+    console.log("PATH--",this.router.url);
     // this.service.getTransportRequestFormData().subscribe((data) => {
     this.caseWorker = this.requestFormObject;
     console.log("data::",this.requestFormObject);
@@ -186,12 +187,12 @@ let obj={
       this.greyingOut = false;
         this.sucessMessage();
         setTimeout(() => {
-          this.refreshRequestComponent('/case-worker/messages');
+          this.refreshRequestComponent();
         }, 500);
 
     }else if (data.responseStatus === 'FAILURE') {
       this.errorMessage();
-      this.refreshRequestComponent('/case-worker/messages');
+      this.refreshRequestComponent();
     }
     
    });
@@ -226,10 +227,12 @@ let obj={
         detail: 'Something went wrong',
       });
     }
-
-      async refreshRequestComponent(url: string): Promise<boolean> {
-        await this.router.navigateByUrl('.', { skipLocationChange: true });
-        return this.router.navigateByUrl(url);
+       refreshRequestComponent(){
+        console.log("PATH_",this.router.url);
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+         this.router.navigateByUrl('/', { skipLocationChange: true });
+        return this.router.navigateByUrl(this.router.url);
       }
 
   reset() {

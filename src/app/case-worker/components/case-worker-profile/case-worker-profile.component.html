@@ -15,6 +15,8 @@
           />
         </div>
       </div>
+      <input class="uploadImage" #imageInput accept="image/*" (change)="onImagePicked(imageInput)" pInputText placeholder="Upload Image" type="file" />
+      <button pButton (click)="onImageUpload()">Upload Image</button>
       <div class="CaseWorkerInfo">
         <div class="p-fluid p-grid">
           <div class="p-field p-col-12 p-md-4">

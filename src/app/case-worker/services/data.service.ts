@@ -49,4 +49,8 @@ export class DataService {
       return this.restcs.get(this.updateTreatmentPlanAPI+vetID,data);
     }
   } 
+  imageUpload(imageForm: FormData) {
+    console.log('image uploading',imageForm);
+    return this.http.post('http://localhost:3000/api/v1/upload', imageForm);
+   }
 }
