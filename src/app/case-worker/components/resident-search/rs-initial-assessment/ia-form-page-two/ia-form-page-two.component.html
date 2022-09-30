@@ -27,7 +27,7 @@
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Highest Grade Completed</span>
-        <input type="number" min="1" max="18" pInputText formControlName=highestGradeCompleted
+        <input type="text" min="1" max="18" pInputText formControlName=highestGradeCompleted
           placeholder="Grade">
       </div>
       <div class="p-field p-col-12 p-md-6">
@@ -78,10 +78,15 @@
         <span class="label-title">Type of Discharge</span>
         <input type="text" pInputText formControlName=typeOfDischarge placeholder="Type of Discharge">
       </div>
-      <div class="p-field p-md-4">
-        <span class="label-title">Dates of Service</span>
+      <!-- <div class="p-field p-md-4">
+        <span class="label-title">Dates of Service</span> -->
         <!-- <p-calendar formControlName=serviceDate [inline]=false [showIcon]=true placeholder="Dates of Service"></p-calendar> -->
-        <input type="text" pInputText formControlName=serviceDate placeholder="Date" [readonly]="true">
+        <!-- <input type="text" pInputText formControlName=serviceDate placeholder="Date" [readonly]="true">
+      </div> -->
+      <div class="p-field p-col-12 p-md-6">
+        <span class="label-title">Service Date</span>
+        <!-- <p-calender  pInputText formControlName=serviceDate placeholder="Date of Service" [showIcon]="true"></p-calender> -->
+        <p-calendar formControlName=serviceDate [inline]="false" [showIcon]="true" placeholder="Date of Service"></p-calendar>
       </div>
       <div class="p-field p-md-4">
         <span class="label-title">Service Location</span>
@@ -184,7 +189,7 @@
     <div class="p-d-flex button-container p-mt-4">
       <div class="p-jc-start">
         <button type="submit" pButton label="Save"></button>
-        <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2"></button>
+        <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2" (click)="reset()"></button>
       </div>
       <div class="p-jc-end">
         <button type="button" pButton label="Back" (click)="goBack()"></button>

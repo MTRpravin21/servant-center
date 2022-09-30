@@ -37,11 +37,15 @@ export const environment = {
     updateTreatmentPlan: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/updateTreatmentPlanDetails/save/',
     getResidentSearchData: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/residentSearch/getAll',
     getIAPage1Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1/',
+    postIAPage1Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1/',
     getIAPage2Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-2/',
     postIAPage2Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-2/',
+    getIAPage3Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-3/',
+    // postIAPag34Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-3/',
     getIAPage4Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-4/',
     postIAPage4Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-4',
-    updateProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/api/v2/upload/'
+    updateProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/uploadImage/',
+    getProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/profileImage/'
   },
   localUrl:''
 };

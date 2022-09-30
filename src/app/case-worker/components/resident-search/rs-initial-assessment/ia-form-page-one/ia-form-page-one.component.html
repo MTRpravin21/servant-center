@@ -10,16 +10,17 @@
       <div class="p-field p-col-12 p-md-3">
         <span class="label-title">First Name</span>
         <input type="text" pInputText formControlName=firstName placeholder="First Name">
-        <small class="error"
-                  *ngIf="iaPage1PD.firstName.errors?.required && iaPage1PD.firstName.touched">First Name is Required.</small>
+        <small class="error" *ngIf="iaPage1PD.firstName.errors?.required && iaPage1PD.firstName.touched">First name is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-3">
-        <span class="label-title">Middle Name</span>
+        <span class="label-title">Middle Initial</span>
         <input type="text" pInputText formControlName=middleInitial placeholder="Middle Initial">
+        <small class="error" *ngIf="iaPage1PD.middleInitial.errors?.required && iaPage1PD.middleInitial.touched">Middle initial is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-3">
         <span class="label-title">Last Name</span>
         <input type="text" pInputText formControlName=lastName placeholder="Last Name">
+        <small class="error" *ngIf="iaPage1PD.lastName.errors?.required && iaPage1PD.lastName.touched">Last name is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-3">
         <span class="label-title">Nick Name</span>
@@ -28,22 +29,26 @@
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Date of Birth</span>
         <input type="text" pInputText formControlName=dob placeholder="DateOfBirth" [readonly]="true">
+        <small class="error" *ngIf="iaPage1PD.dob.errors?.required && iaPage1PD.dob.touched">Date of birth is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Place of Birth</span>
         <input type="text" pInputText formControlName=placeOfBirth placeholder="Place of birth">
+        <small class="error" *ngIf="iaPage1PD.placeOfBirth.errors?.required && iaPage1PD.placeOfBirth.touched">Place of birth is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-4">
         <span class="label-title">#SSN</span>
         <input type="text" pInputText formControlName=ssn placeholder="SSN">
+        <small class="error" *ngIf="iaPage1PD.ssn.errors?.required && iaPage1PD.ssn.touched">SSN is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-4">
         <span class="label-title">Primary phone</span>
         <input type="text" pInputText formControlName=primaryPhone placeholder="Primary Phone">
+        <small class="error" *ngIf="iaPage1PD.primaryPhone.errors?.required && iaPage1PD.primaryPhone.touched">Phone number is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-4">
         <span class="label-title">Age</span>
-        <input type="text" pInputText formControlName=age placeholder="Age">
+        <input type="text" pInputText formControlName=age placeholder="Age" [readOnly] = true>
       </div>
       <div class="p-col-12 p-formgroup-inline">
         <label class="p-mr-3 radiobutton-group-label">Sex</label>
@@ -547,7 +552,7 @@
     <div class="p-d-flex button-container p-mt-4">
       <div class="p-jc-start">
         <button type="submit" pButton label="Save"></button>
-        <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-3"></button>
+        <button type="button" pButton label="Cancel" (click)="reset()" class="p-button-outlined p-ml-3"></button>
       </div>
       <div class="p-jc-end">
         <button (click)="next()" type="button" pButton label="Next"></button>

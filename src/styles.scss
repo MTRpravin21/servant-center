@@ -125,11 +125,16 @@ p-calendar.ng-touched.ng-invalid > .p-calendar > .p-inputtext {
 
 .center-spinner{
   position: fixed;
-  // width: 500px;
-  // height: 5000px;
-  top: 50%;
-  left: 50%;
- // margin-top: 100000px;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  
 }
 .custom-spinner .p-progress-spinner-circle {
   animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;

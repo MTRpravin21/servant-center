@@ -10,6 +10,7 @@ import { environment as env} from 'src/environments/environment.prod';
 })
 export class IaPage1Service {
   private getIAPage1Details = env.serviceUrl.getIAPage1Details;
+  private postIAPage1Details = env.serviceUrl.postIAPage1Details;
   constructor(private restcs: RestClientService,private http:HttpClient) {}
   private commonUrl=environment.localUrl;
   private isDev = isDevMode();
@@ -27,8 +28,7 @@ export class IaPage1Service {
     if (this.isDev){
     return this.http.post(this.commonUrl+'initialAssessment/page-1',data);
     } else{
-      //env api goes here
-      return this.http.post('api goes here',data);
+      return this.http.post(this.postIAPage1Details,data);
     }
 }
 

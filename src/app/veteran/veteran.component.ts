@@ -110,6 +110,7 @@ export class VeteranComponent implements OnInit {
         this.firstName = userPayloadObject?.idToken?.payload?.given_name;
         this.lastName = userPayloadObject?.idToken?.payload?.family_name;
         this.nickName = userPayloadObject?.idToken?.payload?.nickname;
+        this.cacheData.set('userGroup',this.userGroup)
         console.log('Authenticated UserName', this.username);
         console.log('Authenticated email', this.email);
         console.log('Authenticated firstName', this.firstName);

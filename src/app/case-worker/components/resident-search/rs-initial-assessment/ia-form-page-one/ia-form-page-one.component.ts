@@ -16,7 +16,8 @@ export class IaFormPageOneComponent implements OnInit {
   ia1: boolean = true;
   greyingOut: boolean = true;
   data: any;
-  date_of_birth: any;
+  age: any;
+  dateofbirth: any;
   hivTestDate: any;
   stdTestDate: any;
   submitted: boolean = false;
@@ -109,29 +110,51 @@ export class IaFormPageOneComponent implements OnInit {
       this.greyingOut = false;
       this.data = res[0];
       console.log('dob', this.data.date_of_birth);
-      this.date_of_birth = this.datepipe.transform(
+      this.dateofbirth = this.datepipe.transform(
         this.data.date_of_birth,
-        'M/d/yy'
+        'MM/dd/yyyy'
       );
       this.hivTestDate = this.datepipe.transform(
         this.data.approx_hiv_test_date,
-        'dd/MM/yyyy'
+        'MM/dd/yyyy'
       );
       this.stdTestDate = this.datepipe.transform(
         this.data.approx_std_test_date,
-        'dd/MM/yyyy'
+        'MM/dd/yyyy'
       );
+      this.age = this.datepipe.transform(
+        this.data.date_of_birth,
+        'yyyy-MM-dd'
+      );
+
+      const getAge = (birthDateString: any) => {
+        const today = new Date();
+        const birthDate = new Date(birthDateString);
+      
+        const yearsDifference = today.getFullYear() - birthDate.getFullYear();
+      
+        if (
+          today.getMonth() < birthDate.getMonth() ||
+          (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
+        ) {
+          return yearsDifference - 1;
+        }
+      
+        return yearsDifference;
+      };
+      const currAge = getAge(this.age);
       this.buildForm();
+      if (this.data){
       this.personalDetails.patchValue({
         firstName: this.data.first_name,
         lastName: this.data.last_name,
         middleInitial: this.data.middle_initial,
         nickName: this.data.nick_name,
-        dob: this.date_of_birth,
+        dob: this.dateofbirth,
         // dob: this.data.date_of_birth,
         placeOfBirth: this.data.place_of_birth,
         ssn: this.data.ssn,
-        //  age:                   this.data.,
+         age: currAge,
         sex: this.data.gender,
         maritalStatus: this.data.marital_status,
         race: this.data.race,
@@ -162,7 +185,6 @@ export class IaFormPageOneComponent implements OnInit {
         vaCoverage: this.data.va_coverage,
         medicareCoverage: this.data.medicare_coverage,
         othMedCoverage: this.data.other_med_coverage,
-        otherBenefits: this.data.otherBenefits,
         cashBenefits: this.data.cash_benefits,
         nonCashBenefits: this.data.non_cash_benefits,
         receivingBenefits: this.data.current_benefits,
@@ -194,6 +216,80 @@ export class IaFormPageOneComponent implements OnInit {
         stdTestResult: this.data.std_test_results,
         hivTestDesired: this.data.hiv_test_desired
       });
+    }
+    else{
+      this.personalDetails.patchValue({
+        firstName: null,
+        lastName:null,
+        middleInitial: null,
+        nickName: null,
+        dob: null,
+        // dob: this.data.date_of_birth,
+        placeOfBirth: null,
+        ssn:null,
+        //  age:                   this.data.,
+        sex: null,
+        maritalStatus: null,
+        race: null,
+        primaryPhone: null,
+        primaryLanguage: null,
+        addressMain: null,
+        addressLine2: null,
+        city: null,
+        country: null,
+        state: null,
+        zipcode: null,
+        contactPerson: null,
+        relationship: null,
+        contactPersonAddress: null,
+        phone: null,
+        religiousPreferences:null,
+        hobbiesInterests: null,
+        consent: null,
+      });
+      this.incomeAndResources.patchValue({
+        income: null,
+        type: null,
+        bankAccount: null,
+        bankName: null,
+        directDeposit: null,
+        otherAssets: null,
+        medicaid: null,
+        vaCoverage: null,
+        medicareCoverage: null,
+        othMedCoverage: null,
+        cashBenefits: null,
+        nonCashBenefits: null,
+        receivingBenefits: null,
+        applyingBenefits: null,
+      });
+      this.socialAndFamilyHistory.patchValue({
+        childhood:null,
+        discipline: null,
+        everMarried: null,
+        numberOfMarriages: null,
+        relationShipWithParents: null,
+        relationShipWithSiblings: null,
+        physicalAbuse: null,
+        sexualAbuse: null,
+        healthProblemsInFamily: null,
+        substanceAbuse: null,
+        currentMaritalStatus: null,
+        sexualOrientation: null,
+        sexuallyActive: null,
+        sexualProblemsOrConcerns: null,
+        specifySexualProblems: null,
+        testedForHivOrAids: null,
+        hivTestedDate: null,
+        hivTestedLocation: null,
+        hivTestResult: null,
+        testedSTDs: null,
+        stdTestedDate: null,
+        stdTestedLocation: null,
+        stdTestResult: null,
+        hivTestDesired: null
+      });
+    }
       console.log('daaaata', this.data.first_name);
     });
   }
@@ -307,7 +403,7 @@ export class IaFormPageOneComponent implements OnInit {
     let incType = this.incomeAndResources.value.type;
     let accType = this.incomeAndResources.value.bankAccount;
     let othAssets = this.incomeAndResources.value.otherAssets;
-    let currBenefits = this.incomeAndResources.value.currBenefits;
+    let currBenefits = this.incomeAndResources.value.receivingBenefits;
     let cashBeni = this.incomeAndResources.value.cashBenefits;
     let nonCashBeni = this.incomeAndResources.value.nonCashBenefits;
     this.incomeAndResources.value.type = "{"+incType+"}"
@@ -337,13 +433,17 @@ export class IaFormPageOneComponent implements OnInit {
   }
   next() {
     console.log('clicked next');
-    if (this.submitted) {
+    if (!this.page1Form.touched) {
       this.router.navigateByUrl(
         'case-worker/resident-search/initial-assessment/page-2'
       );
     } else {
-      alert('Please save first');
+      this.infoMessage();
     }
+  }
+
+  reset(){
+    this.setForm();
   }
 
   getFamilyDetailFormGroup() {
@@ -401,6 +501,13 @@ export class IaFormPageOneComponent implements OnInit {
       severity: 'error',
       summary: 'Failed',
       detail: 'Something Went Wrong!',
+    });
+  }
+  infoMessage(){
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Save!',
+      detail: 'Please Save the Details Before Going to next Step',
     });
   }
 }

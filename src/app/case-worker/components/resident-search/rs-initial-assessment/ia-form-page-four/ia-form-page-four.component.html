@@ -230,7 +230,7 @@
         </div>
       <!--  warrant reason -->
       <div class="p-field p-md-8">
-        <span class="label-title">Warrant Reasony</span>
+        <span class="label-title">Warrant Reason</span>
         <input type="text" pInputText formControlName=warrantReason placeholder="Warrant Reason ">
       </div>
       <!-- on probation or parole -->
@@ -278,7 +278,7 @@
   <div class="p-d-flex button-container p-mt-4">
     <div class="p-jc-start">
       <button type="submit" pButton label="Save"></button>
-      <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2"></button>
+      <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2" (click)="reset()"></button>
     </div>
     <div class="p-jc-end">
       <button type="button" pButton label="Back" (click)="goBack()"></button>

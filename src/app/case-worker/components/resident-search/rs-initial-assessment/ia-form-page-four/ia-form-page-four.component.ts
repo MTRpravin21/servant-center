@@ -83,6 +83,7 @@ export class IaFormPageFourComponent implements OnInit {
       this.greyingOut = false;
       this.data = res[0];
       this.buildForm();
+      if(this.data){
       this.substanceAbuseHistory.patchValue({
         histOfAlcohol: this.data.alcohol_history,
         currentlyConsumesAlcohol: this.data.currently_consumes_alcohol,
@@ -100,7 +101,7 @@ export class IaFormPageFourComponent implements OnInit {
         currentlyConsumesCaffeine: this.data.currently_uses_caffeine,
         currentCaffeineIntakeFreq: this.data.current_caffeine_use_freq,
         treatmentPrograms: this.data.treatment_programs,
-      });
+       });
       this.legalHistoryOrIssues.patchValue({
         everArrested: this.data.ever_arrested,
         arrestedReason: this.data.arrest_reason,
@@ -115,6 +116,41 @@ export class IaFormPageFourComponent implements OnInit {
         officerAddress: this.data.officer_address,
         probationOrParoleTerms: this.data.probation_or_parole_terms,
       });
+    }
+    else{
+      this.substanceAbuseHistory.patchValue({
+        histOfAlcohol: null,
+        currentlyConsumesAlcohol: null,
+        currentAlcoholIntakeFreq: null,
+        histOfDrugs: null,
+        currentlyConsumesDrugs: null,
+        currentDrugIntakeFreq: null,
+        lastUseOfDrugAlcohol: null,
+        currentDrugAlcoholTreatment: null,
+        withdrawalHistory: null,
+        histOfTobacco: null,
+        currentlyConsumesTobacco: null,
+        currentTobaccoIntakeFreq: null,
+        histOfCaffeine: null,
+        currentlyConsumesCaffeine: null,
+        currentCaffeineIntakeFreq: null,
+        treatmentPrograms: null,
+       });
+       this.legalHistoryOrIssues.patchValue({
+        everArrested: null,
+        arrestedReason: null,
+        everConvicted: null,
+        convictedReason: null,
+        currentPendingCharges: null,
+        charges: null,
+        outstandingWarrants: null,
+        warrantReason:null,
+        onProbationOrParole:null,
+        officerName: null,
+        officerAddress: null,
+        probationOrParoleTerms: null,
+      });
+    }
     });
   }
 
@@ -192,19 +228,27 @@ export class IaFormPageFourComponent implements OnInit {
   }
   next() {
     console.log('clicked next');
-    if (this.submitted) {
+    if (!this.page4Form.touched) {
       this.router.navigateByUrl(
         'case-worker/resident-search/initial-assessment/page-5'
       );
     } else {
-      alert('Please save first');
+      this.infoMessage();
     }
   }
 
   goBack() {
-    this.router.navigateByUrl(
-      'case-worker/resident-search/initial-assessment/page-3'
-    );
+    if (!this.page4Form.touched) {
+      this.router.navigateByUrl(
+        'case-worker/resident-search/initial-assessment/page-3'
+      );
+    } else {
+      this.infoMessage();
+    }
+  }
+
+  reset(){
+    this.setForm();
   }
 
   successMessage() {
@@ -221,6 +265,14 @@ export class IaFormPageFourComponent implements OnInit {
       severity: 'error',
       summary: 'Failed',
       detail: 'Something Went Wrong!',
+    });
+  }
+
+  infoMessage(){
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Save!',
+      detail: 'Please Save the Details Before Going to next Step',
     });
   }
 }

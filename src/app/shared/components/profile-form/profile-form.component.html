@@ -7,13 +7,13 @@
   <div class="p-fluid p-formgrid p-grid">
     <img
       class="form-container__img"
-      src="assets/images/profile.svg"
+      [src]="imageUrl"
       alt="Image"
       width="150"
     />
   </div>
-  <input  #imageInput accept="image/*" (change)="onImagePicked(imageInput)" pInputText placeholder="Upload Image" type="file" />
-  <button pButton (click)="onImageUpload()">Upload Image</button>
+  <!-- <input  #imageInput accept="image/*" (change)="onImagePicked(imageInput)" pInputText placeholder="Upload Image" type="file" />
+  <button pButton (click)="onImageUpload()">Upload Image</button> -->
   <div *ngIf="isShowFields" class="p-fluid p-grid">
     <div class="p-field p-col-12 p-md-4">
       <label class="label-title">Record #</label>

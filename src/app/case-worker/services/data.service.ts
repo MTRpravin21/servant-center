@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { environment} from 'src/environments/environment.prod';
 import { environment as env } from 'src/environments/environment';;
 import { RestClientService } from 'src/app/shared/services/rest-client.service';
@@ -18,10 +18,20 @@ export class DataService {
   private caseWorkerApi = environment.serviceUrl.caseWorkerUser;
   private getTreatmentPlanAPI = environment.serviceUrl.getTreatmentPlan;
   private updateTreatmentPlanAPI = environment.serviceUrl.updateTreatmentPlan;
+  public responseCache = new Map();
+
   
   public getUserData( endPoint: number): Observable<any> {
-    if (this.isDev) {
-     return this.restcs.get(this.serviceUrl+'uiLayout/getCaseWorkerDetails/'+ endPoint); 
+    // const dataFromCache = this.responseCache.get(URL);
+      if (this.isDev) {
+    //   if (dataFromCache) {
+    //   return of (dataFromCache)
+    // } 
+    // const response = this.http.get(this.serviceUrl+'uiLayout/getCaseWorkerDetails/3');
+    // response.subscribe(data => this.responseCache.set(URL, data));
+    // return response;
+
+    return this.restcs.get(this.serviceUrl+'uiLayout/getCaseWorkerDetails/'+ endPoint); 
     } else {
        return this.restcs.get(this.caseWorkerApi + endPoint);
     } 

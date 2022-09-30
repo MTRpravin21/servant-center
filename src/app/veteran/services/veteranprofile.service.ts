@@ -18,10 +18,10 @@ export class VeteranprofileService {
   private commonUrl=env.localUrl;
   private veteranProfileUpdateAPI=environment.serviceUrl.veteranProfileUpdateUser;
   private profileImgUpdateAPI=environment.serviceUrl.updateProfileImage;
+  private profileGetImgAPI=environment.serviceUrl.getProfileImage;
 
   public getProfileData(
-    endPoint: number, 
-    payload = {}
+    endPoint: number
   ): Observable<any> {
     if (this.isDev) {  
       return this.restcs.get(this.commonUrl+'userProfile/getUserDetails/'+endPoint);
@@ -47,12 +47,19 @@ export class VeteranprofileService {
   } 
   //Transportation End
 
-  imageUpload(imageForm: FormData) {
-    console.log('image uploading',imageForm);
+  profileimageUpload(imageForm: FormData,endPoint:number): Observable<any> {
     if (this.isDev) {
-      return this.http.post(this.commonUrl+'api/v2/upload/', imageForm);
+      return this.http.post(this.commonUrl+'uploadImage/'+endPoint, imageForm);
     } else {
-      return this.http.post(this.profileImgUpdateAPI, imageForm);
+      return this.http.post(this.profileImgUpdateAPI+endPoint, imageForm);
+    }  
+   }
+
+   getProfileImage(imageName:string): Observable<any> {
+    if (this.isDev) {
+      return this.restcs.get(this.commonUrl+'profileImage/'+imageName);
+    } else {
+      return this.restcs.get(this.profileGetImgAPI+imageName);
     }  
    }
 }

@@ -11,6 +11,7 @@ import {
 } from '../../../veteran/app.constants';
 import { VeteranProfileResponse } from '../../models/VeteranProfileResponse';
 import { ClipBoardService } from '../../services/clip-board.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface DropDown {
   name: string;
@@ -30,7 +31,7 @@ export class ProfileFormComponent implements OnInit {
   public maritalStatus!: DropDown[];
   public relations!: DropDown[];
   public imageObj!: File;
-  public imageUrl!: string;
+  public imageUrl!: any;
   public selectedState!: DropDown;
   public selectedGender: any = null;
   public selectedMaritalStatus!: DropDown;
@@ -40,14 +41,15 @@ export class ProfileFormComponent implements OnInit {
   maxDateValue!: Date;
   @Input() isShowFields!: boolean;
   veteranId!: number;
-  showSpinner:boolean=true;
-  showOverlay:boolean=true;
+  showSpinner: boolean = true;
+  showOverlay: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
     private service: VeteranprofileService,
     private cacheData: ClipBoardService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private sanitization: DomSanitizer
   ) {
     this.veteranId = this.cacheData.get('veteranId');
     this.setForm();
@@ -72,9 +74,9 @@ export class ProfileFormComponent implements OnInit {
       .subscribe((data: VeteranProfileResponse) => {
         this.profileDetails = data;
         this.veteran = this.profileDetails.data[0];
-        if(this.veteran){
-          this.showSpinner=false;
-          this.showOverlay=false;
+        if (this.veteran) {
+          this.showSpinner = false;
+          this.showOverlay = false;
         }
         console.log('Profile API Data--->', data);
         if (this.veteran.place_of_birth === 'x') {
@@ -106,12 +108,21 @@ export class ProfileFormComponent implements OnInit {
         }
         if (this.veteran.race === 'x') {
           this.veteran.race = '';
-        }    
-        let dateOfBirth = new Date(new Date(this.veteran.date_of_birth).toUTCString());
-        let veteranDateOfBirth =dateOfBirth.getMonth() +1 +'/' +dateOfBirth.getDate() +'/' +dateOfBirth.getFullYear();
+        }
+        let dateOfBirth = new Date(
+          new Date(this.veteran.date_of_birth).toUTCString()
+        );
+        let veteranDateOfBirth =
+          dateOfBirth.getMonth() +
+          1 +
+          '/' +
+          dateOfBirth.getDate() +
+          '/' +
+          dateOfBirth.getFullYear();
         if (veteranDateOfBirth === '9/15/1777') {
           veteranDateOfBirth = '';
         }
+        this.displayImage();
         this.profileForm.patchValue({
           firstName: this.veteran.first_name,
           middleName: this.veteran.middle_initial,
@@ -178,8 +189,8 @@ export class ProfileFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showOverlay=true;
-    this.showSpinner=true;
+    this.showOverlay = true;
+    this.showSpinner = true;
     console.log('Profile Form submitted value', this.profileForm.value);
     let profileDetails = this.profileForm.value;
     this.service
@@ -219,24 +230,41 @@ export class ProfileFormComponent implements OnInit {
   }
 
   resetForm() {
-    this.showOverlay=true;
+    this.showOverlay = true;
     this.buildForm();
-    this.showSpinner=true;
+    this.showSpinner = true;
     this.setForm();
     this.resetMessage();
   }
-  onImagePicked(imageInput: HTMLInputElement): void {
-    console.log('image upload ******', imageInput.files![0]);
-    const FILE:File = imageInput.files![0];
-    this.imageObj = FILE;
+  // onImagePicked(imageInput: HTMLInputElement): void {
+  //   console.log('image upload ******', imageInput.files![0]);
+  //   const FILE:File = imageInput.files![0];
+  //   this.imageObj = FILE;
+  // }
+
+  // onImageUpload() {
+  //   let imageForm = new FormData();
+  //   imageForm.append('image', this.imageObj);
+  //   this.service.imageUpload(imageForm,this.veteranId).subscribe((res) => {
+  //     console.log('uploaded successfully');
+  //   });
+  // }
+
+  displayImage() {
+    if (this.veteran.photo === null) {
+      this.imageUrl = '../assets/images/user-profile.jpg';
+    } else {
+      this.displayImageFromAWS(this.veteran.photo);
+    }
   }
 
-  onImageUpload() {
-    let imageForm = new FormData();
-    imageForm.append('image', this.imageObj);
-    this.service.imageUpload(imageForm).subscribe((res) => {
-      //this.imageUrl = res['image'];
-      console.log('uploaded successfully');
+  displayImageFromAWS(fileName: string) {
+    this.service.getProfileImage(fileName).subscribe((response: any) => {
+      console.log(response);
+      var imageSrc =
+        'data:application/octet-stream;base64,' + response.data + '';
+      this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
+      console.log('image', this.imageUrl);
     });
   }
 }

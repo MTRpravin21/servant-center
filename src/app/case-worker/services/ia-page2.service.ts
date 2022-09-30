@@ -28,7 +28,6 @@ export class IaPage2Service {
         data
       );
     } else {
-      //env api goes here
       return this.restcs.post(this.postIAPage2Details, data);
     }
   }

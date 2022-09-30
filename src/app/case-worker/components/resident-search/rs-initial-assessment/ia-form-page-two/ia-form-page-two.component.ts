@@ -52,11 +52,14 @@ export class IaFormPageTwoComponent implements OnInit {
       this.ia2 = false;
       this.greyingOut = false;
       this.data = res[0];
+      console.log('this data',this.data);
+      
       this.serviceDate = this.datepipe.transform(
         this.data.service_dates,
-        'dd/MM/yyyy'
+        'MM/dd/yyyy'
       );
       this.buildForm();
+      if(this.data){
       this.educationAndEmploymentHistory.patchValue({
         highestGradeCompleted: this.data.highest_education_grade,
         nameAndLocation: this.data.school_name,
@@ -68,13 +71,14 @@ export class IaFormPageTwoComponent implements OnInit {
         military: this.data.active_military_status,
         branch: this.data.military_branch,
         typeOfDischarge: this.data.discharge_type,
-        serviceDate: this.data.service_dates,
-        serviceLocation: this.data.service_location,
+        serviceDate: this.serviceDate,
+        serviceLocation: this.data.serviceLocation ,
         otherTrainingEducation: this.data.other_training_education,
         currentEmployer: this.data.current_employer,
         currentEmployerLocation: this.data.current_employer_location,
         otherTrainingOrSkills: this.data.work_skills,
       });
+      
       this.mentalHealthInformation.patchValue({
       diagnosis: this.data.diagnosis,
       currentPsychiatricTreatment: this.data.current_psych_treatment,
@@ -90,7 +94,45 @@ export class IaFormPageTwoComponent implements OnInit {
       psychEvaluatorLicense: this.data.psych_evaluation_physician_license,
       psychiatristCityState: this.data.psychiatrist_city_state
       });
+    }
+    else{
+      this.educationAndEmploymentHistory.patchValue({
+        highestGradeCompleted: null,
+        nameAndLocation: null,
+        currentJob: null,
+        // jobEmployedInLongest:this.data.,
+        mostRecentJob: null,
+        // jobDate: this.data.,
+        // reasonForLeaving: this.data.,
+        military:null,
+        branch: null,
+        typeOfDischarge: null,
+        serviceDate: null,
+        serviceLocation: null ,
+        otherTrainingEducation: null,
+        currentEmployer: null,
+        currentEmployerLocation: null,
+        otherTrainingOrSkills: null,
+      });
+      
+      this.mentalHealthInformation.patchValue({
+      diagnosis: null,
+      currentPsychiatricTreatment: null,
+      psychiatristName: null,
+      psychiatristAddress: null,
+      pastTreatments: null,
+      needPsychiatricCunsultant: null,
+      psychEvaluatorName: null,
+      psychEvaluatorAddress:null,
+      psychEvaluatorCity: null,
+      psychEvaluatorState:null,
+      psychEvaluatorZipcode: null,
+      psychEvaluatorLicense: null,
+      psychiatristCityState: null
+      });
+    }
     });
+    
   }
 
   initializeFormGroups() {
@@ -142,6 +184,12 @@ export class IaFormPageTwoComponent implements OnInit {
     this.submitted = true;
     this.ia2 = true;
     this.greyingOut = true
+    let preJob = this.educationAndEmploymentHistory.value.mostRecentJob;
+    this.educationAndEmploymentHistory.value.mostRecentJob = "{"+preJob+"}"
+    let workSkill = this.educationAndEmploymentHistory.value.otherTrainingOrSkills;
+    this.educationAndEmploymentHistory.value.otherTrainingOrSkills = "{"+workSkill+"}"
+    let othTrainEdu = this.educationAndEmploymentHistory.value.otherTrainingEducation;
+    this.educationAndEmploymentHistory.value.otherTrainingEducation = "{"+othTrainEdu+"}"
     this.service
       .initialTreatmentGoalsPage2(this.page2Form.value)
       .subscribe((data) => {
@@ -162,19 +210,27 @@ export class IaFormPageTwoComponent implements OnInit {
   }
   next() {
     console.log('clicked next');
-    if (this.submitted) {
+    if (!this.page2Form.touched) {
       this.router.navigateByUrl(
         'case-worker/resident-search/initial-assessment/page-3'
       );
     } else {
-      alert('Please save first');
+      this.infoMessage();
     }
   }
 
   goBack() {
-    this.router.navigateByUrl(
-      'case-worker/resident-search/initial-assessment/page-1'
-    );
+    if (!this.page2Form.touched) {
+      this.router.navigateByUrl(
+        'case-worker/resident-search/initial-assessment/page-1'
+      );
+    } else {
+      this.infoMessage();
+    }
+  }
+
+  reset(){
+    this.setForm();
   }
 
   index: number = 0;
@@ -192,6 +248,13 @@ export class IaFormPageTwoComponent implements OnInit {
       severity: 'error',
       summary: 'Failed',
       detail: 'Something Went Wrong!',
+    });
+  }
+  infoMessage(){
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Save!',
+      detail: 'Please Save the Details Before Going to next Step',
     });
   }
 }

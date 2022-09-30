@@ -12,6 +12,16 @@ export class IaPage3Service {
   private commonUrl = environment.localUrl;
   private isDev = isDevMode();
 
+
+  public getIAPage3(vetId: number): Observable<any> {
+    if (this.isDev){
+    return this.restcs.get(this.commonUrl+'initialAssessment/page-3/'+vetId);
+    } else{
+      //env api goes here
+      return this.restcs.post('api goes here');
+    }
+}
+
   public initialTreatmentGoalsPage3(data: any): Observable<any> {
     if (this.isDev) {
       return this.restcs.post(
