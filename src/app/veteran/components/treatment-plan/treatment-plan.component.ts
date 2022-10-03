@@ -68,7 +68,11 @@ export class TreatmentPlanComponent implements OnInit {
         dateOfBirth1: this.date_of_birth,
         intakeDOB: this.intake_date,
         hmisIdNo: this.data.hmis_id,
-        treatmentIssues: this.data.treatmentIssues
+        veteranDiagnosis: this.data.diagnosis,
+        veteranSupports: this.data.supports,
+        veteranStrengths: this.data.strengths,
+        veteranNotes: this.data.notes
+        //treatmentIssues: this.data.treatmentIssues
       });
     });
   }

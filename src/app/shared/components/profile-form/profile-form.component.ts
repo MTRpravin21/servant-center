@@ -122,7 +122,7 @@ export class ProfileFormComponent implements OnInit {
         if (veteranDateOfBirth === '9/15/1777') {
           veteranDateOfBirth = '';
         }
-        this.displayImage();
+        // this.displayImage();
         this.profileForm.patchValue({
           firstName: this.veteran.first_name,
           middleName: this.veteran.middle_initial,
@@ -236,35 +236,22 @@ export class ProfileFormComponent implements OnInit {
     this.setForm();
     this.resetMessage();
   }
-  // onImagePicked(imageInput: HTMLInputElement): void {
-  //   console.log('image upload ******', imageInput.files![0]);
-  //   const FILE:File = imageInput.files![0];
-  //   this.imageObj = FILE;
+
+  // displayImage() {
+  //   if (this.veteran.photo === null) {
+  //     this.imageUrl = '../assets/images/user-profile.jpg';
+  //   } else {
+  //     this.displayImageFromAWS(this.veteran.photo);
+  //   }
   // }
 
-  // onImageUpload() {
-  //   let imageForm = new FormData();
-  //   imageForm.append('image', this.imageObj);
-  //   this.service.imageUpload(imageForm,this.veteranId).subscribe((res) => {
-  //     console.log('uploaded successfully');
+  // displayImageFromAWS(fileName: string) {
+  //   this.service.getProfileImage(fileName).subscribe((response: any) => {
+  //     console.log(response);
+  //     var imageSrc =
+  //       'data:application/octet-stream;base64,' + response.data + '';
+  //     this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
+  //     console.log('image', this.imageUrl);
   //   });
   // }
-
-  displayImage() {
-    if (this.veteran.photo === null) {
-      this.imageUrl = '../assets/images/user-profile.jpg';
-    } else {
-      this.displayImageFromAWS(this.veteran.photo);
-    }
-  }
-
-  displayImageFromAWS(fileName: string) {
-    this.service.getProfileImage(fileName).subscribe((response: any) => {
-      console.log(response);
-      var imageSrc =
-        'data:application/octet-stream;base64,' + response.data + '';
-      this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
-      console.log('image', this.imageUrl);
-    });
-  }
 }

@@ -1,34 +1,33 @@
 <p-toast position="top-center"></p-toast>
-<div *ngIf="greyingOut" id="overlay">  </div>
-  <div class="center-spinner">
-    <p-progressSpinner *ngIf="ia2" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-  </div>
+<div *ngIf="greyingOut" id="overlay"> </div>
+<div class="center-spinner">
+  <p-progressSpinner *ngIf="ia2" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5"
+    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
 <div class="page1-form-container p-mt-4">
   <form [formGroup]="page2Form" (ngSubmit)="onSubmit()" *ngIf="page2Form">
     <h3>Employment and Education History</h3>
     <div class="p-fluid p-formgrid p-grid" formGroupName="educationAndEmploymentHistory">
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Current Occupation</span>
-        <input type="text" pInputText formControlName=currentJob
-          placeholder="Skills">
+        <input type="text" pInputText formControlName=currentJob placeholder="Skills">
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Previous Occupation</span>
         <input type="text" pInputText formControlName=mostRecentJob placeholder="Job">
       </div>
-      <div class="p-field p-col-12 p-md-6">
-        <span class="label-title">Date</span>
-        <!-- <p-calendar formControlName=jobDate [inline]=false [showIcon]=true placeholder="Date"></p-calendar> -->
-        <input type="text" pInputText formControlName=jobDate placeholder="Date" [readonly]="true">
-      </div>
-      <div class="p-field p-col-12 p-md-6">
+      <!-- <div class="p-field p-col-12 p-md-6">
+        <span class="label-title">Date</span> -->
+      <!-- <p-calendar formControlName=jobDate [inline]=false [showIcon]=true placeholder="Date"></p-calendar> -->
+      <!-- <input type="text" pInputText formControlName=jobDate placeholder="Date" [readonly]="true">
+      </div> -->
+      <!-- <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Reason for Leaving</span>
         <input type="text" pInputText formControlName=reasonForLeaving placeholder="Reason for Leaving">
-      </div>
+      </div> -->
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Highest Grade Completed</span>
-        <input type="text" min="1" max="18" pInputText formControlName=highestGradeCompleted
-          placeholder="Grade">
+        <input type="text" min="1" max="18" pInputText formControlName=highestGradeCompleted placeholder="Grade">
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Name and Location of Schooll</span>
@@ -36,8 +35,7 @@
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Other Training and/or Skills</span>
-        <input type="text" pInputText formControlName=otherTrainingOrSkills
-          placeholder="Other Skills">
+        <input type="text" pInputText formControlName=otherTrainingOrSkills placeholder="Other Skills">
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Job Employed in the Longest</span>
@@ -65,11 +63,12 @@
         <div class="p-col-12 p-formgroup-inline">
           <label class="p-mr-3 radiobutton-group-label">Military? </label>
           <div *ngFor="let militaryService of military; let i = index" class="p-field-radiobutton">
-            <p-radioButton name="military" formControlName=military [value]=militaryService.value inputId="militaryService{{i}}"></p-radioButton>
+            <p-radioButton name="military" formControlName=military [value]=militaryService.value
+              inputId="militaryService{{i}}"></p-radioButton>
             <label for="militaryService{{i}}" class="p-ml-3">{{militaryService.label}}</label>
           </div>
         </div>
-        </div>
+      </div>
       <div class="p-field p-md-4">
         <span class="label-title">Branch</span>
         <input type="text" pInputText formControlName=branch placeholder="Branch">
@@ -80,13 +79,14 @@
       </div>
       <!-- <div class="p-field p-md-4">
         <span class="label-title">Dates of Service</span> -->
-        <!-- <p-calendar formControlName=serviceDate [inline]=false [showIcon]=true placeholder="Dates of Service"></p-calendar> -->
-        <!-- <input type="text" pInputText formControlName=serviceDate placeholder="Date" [readonly]="true">
+      <!-- <p-calendar formControlName=serviceDate [inline]=false [showIcon]=true placeholder="Dates of Service"></p-calendar> -->
+      <!-- <input type="text" pInputText formControlName=serviceDate placeholder="Date" [readonly]="true">
       </div> -->
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Service Date</span>
         <!-- <p-calender  pInputText formControlName=serviceDate placeholder="Date of Service" [showIcon]="true"></p-calender> -->
-        <p-calendar formControlName=serviceDate [inline]="false" [showIcon]="true" placeholder="Date of Service"></p-calendar>
+        <!-- <p-calendar formControlName=serviceDate [inline]="false" [showIcon]="true" placeholder="Date of Service"></p-calendar> -->
+        <input pInputText formControlName="serviceDate" type="text" placeholder="date"> 
       </div>
       <div class="p-field p-md-4">
         <span class="label-title">Service Location</span>
@@ -153,16 +153,17 @@
         <div class="p-col-12 p-formgroup-inline">
           <label class="p-mr-3 radiobutton-group-label">Does Client need a Psychiatrist Cunsultant? </label>
           <div *ngFor="let militaryService of needPsychiatricCunsultant; let i = index" class="p-field-radiobutton">
-            <p-radioButton name="needPsychiatricCunsultant" formControlName=needPsychiatricCunsultant [value]=militaryService.value inputId="militaryService{{i}}"></p-radioButton>
+            <p-radioButton name="needPsychiatricCunsultant" formControlName=needPsychiatricCunsultant
+              [value]=militaryService.value inputId="militaryService{{i}}"></p-radioButton>
             <label for="militaryService{{i}}" class="p-ml-3">{{militaryService.label}}</label>
           </div>
         </div>
-        </div>
+      </div>
       <!-- Date scheduled -->
       <!-- <div class="p-field p-md-4">
         <span class="label-title">Date</span> -->
-        <!-- <p-calendar formControlName=dateScheduled [inline]=false [showIcon]=true placeholder="Date Scheduled"></p-calendar> -->
-        <!-- <input type="text" pInputText formControlName=dateScheduled placeholder="Date" [readonly]="true">
+      <!-- <p-calendar formControlName=dateScheduled [inline]=false [showIcon]=true placeholder="Date Scheduled"></p-calendar> -->
+      <!-- <input type="text" pInputText formControlName=dateScheduled placeholder="Date" [readonly]="true">
       </div> -->
       <!-- name and address of eveluator -->
       <div class="p-field p-md-4">
@@ -172,16 +173,20 @@
       <div class="p-field p-md-4">
         <span class="label-title">Address of Physician Completing Psych Evaluation</span>
         <input type="text" pInputText formControlName=psychEvaluatorAddress placeholder="Physcian Address">
-      </div><div class="p-field p-md-4">
+      </div>
+      <div class="p-field p-md-4">
         <span class="label-title">City</span>
         <input type="text" pInputText formControlName=psychEvaluatorCity placeholder="City">
-      </div><div class="p-field p-md-4">
+      </div>
+      <div class="p-field p-md-4">
         <span class="label-title">State</span>
         <input type="text" pInputText formControlName=psychEvaluatorState placeholder="State">
-      </div><div class="p-field p-md-4">
+      </div>
+      <div class="p-field p-md-4">
         <span class="label-title">Zip Code</span>
         <input type="text" pInputText formControlName=psychEvaluatorZipcode placeholder="Zipcode">
-      </div><div class="p-field p-md-12">
+      </div>
+      <div class="p-field p-md-12">
         <span class="label-title">License of Physician Completing Psych Evaluation</span>
         <input type="text" pInputText formControlName=psychEvaluatorLicense placeholder="License">
       </div>

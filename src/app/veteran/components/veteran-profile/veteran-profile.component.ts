@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./veteran-profile.component.scss'],
 })
 export class VeteranProfileComponent {
-  // to show few fields in veteran profile
-  isShowFields: boolean = true;
 
   constructor() {}
 

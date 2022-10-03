@@ -16,7 +16,7 @@ export class DataService {
 
   private isDev = isDevMode();
   private caseWorkerApi = environment.serviceUrl.caseWorkerUser;
-  private getTreatmentPlanAPI = environment.serviceUrl.getTreatmentPlan;
+  private getTreatmentPlanRSAPI = environment.serviceUrl.getTreatmentPlanRS;
   private updateTreatmentPlanAPI = environment.serviceUrl.updateTreatmentPlan;
   public responseCache = new Map();
 
@@ -47,9 +47,9 @@ export class DataService {
 
   getTreatmentPlanData(vetID:number): Observable<any> {
     if (this.isDev){
-    return this.restcs.get(this.serviceUrl+'getTreatmentPlanDetails/'+ vetID);
+    return this.restcs.get(this.serviceUrl+'residentSearch/getTreatmentPlanDetails/'+ vetID);
     } else{
-      return this.restcs.get(this.getTreatmentPlanAPI+vetID);
+      return this.restcs.get(this.getTreatmentPlanRSAPI+vetID);
     }
   }
   public updateTreatmentPlanData(vetID:number,data:any): Observable<any>{

@@ -17,7 +17,7 @@ export class IaFormPageTwoComponent implements OnInit {
   ia2: boolean = true;
   greyingOut: boolean = true;
   data: any;
-  serviceDate: any;
+  serviceDates: any;
   selectedVetId!: number;
   page2Form!: FormGroup;
   educationAndEmploymentHistory!: FormGroup;
@@ -54,10 +54,10 @@ export class IaFormPageTwoComponent implements OnInit {
       this.data = res[0];
       console.log('this data',this.data);
       
-      this.serviceDate = this.datepipe.transform(
-        this.data.service_dates,
-        'MM/dd/yyyy'
-      );
+      // this.serviceDates = this.datepipe.transform(
+      //   this.data.service_dates,
+      //   'MM/dd/yyyy'
+      // );
       this.buildForm();
       if(this.data){
       this.educationAndEmploymentHistory.patchValue({
@@ -71,14 +71,13 @@ export class IaFormPageTwoComponent implements OnInit {
         military: this.data.active_military_status,
         branch: this.data.military_branch,
         typeOfDischarge: this.data.discharge_type,
-        serviceDate: this.serviceDate,
-        serviceLocation: this.data.serviceLocation ,
+        serviceDate: this.data.service_dates,
+        serviceLocation: this.data.service_location ,
         otherTrainingEducation: this.data.other_training_education,
         currentEmployer: this.data.current_employer,
         currentEmployerLocation: this.data.current_employer_location,
         otherTrainingOrSkills: this.data.work_skills,
       });
-      
       this.mentalHealthInformation.patchValue({
       diagnosis: this.data.diagnosis,
       currentPsychiatricTreatment: this.data.current_psych_treatment,
@@ -114,7 +113,6 @@ export class IaFormPageTwoComponent implements OnInit {
         currentEmployerLocation: null,
         otherTrainingOrSkills: null,
       });
-      
       this.mentalHealthInformation.patchValue({
       diagnosis: null,
       currentPsychiatricTreatment: null,
@@ -131,8 +129,7 @@ export class IaFormPageTwoComponent implements OnInit {
       psychiatristCityState: null
       });
     }
-    });
-    
+    })
   }
 
   initializeFormGroups() {

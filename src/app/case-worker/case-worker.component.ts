@@ -16,9 +16,6 @@ export class CaseWorkerComponent implements OnInit {
   displayMenu: boolean = true;
   public msgCount!: number;
   public msgData: any;
-  public userInfo: any;
-  public name!: string;
-  public profilePic!: string;
   items!: MenuItem[];
 
   username!: string;
@@ -71,12 +68,12 @@ export class CaseWorkerComponent implements OnInit {
         styleClass: 'menu-items--text menu-item--3',
         routerLink: ['/case-worker/resident-search'],
       },
-      {
-        label: 'PROFILE',
-        icon: 'fa fa-user-circle',
-        styleClass: 'menu-items--text menu-item--5',
-        routerLink: ['/case-worker/profile'],
-      },
+      // {
+      //   label: 'PROFILE',
+      //   icon: 'fa fa-user-circle',
+      //   styleClass: 'menu-items--text menu-item--5',
+      //   routerLink: ['/case-worker/profile'],
+      // },
       {
         label: 'LOGOUT',
         icon: 'fas fa-sign-out-alt',
@@ -124,7 +121,6 @@ export class CaseWorkerComponent implements OnInit {
                 this.cacheData.set('caseworkerId', this.caseWorkerId);
                 if (this.caseWorkerId) {
                   this.isShowComponent = true;
-                  this.getWelcomeData();
                 }
               } else if (response.data.length === 0) {
                  console.log('username is not present')
@@ -171,7 +167,6 @@ export class CaseWorkerComponent implements OnInit {
           console.log('web_party_id', this.caseWorkerId);
           if (this.caseWorkerId) {
             this.isShowComponent = true;
-            this.getWelcomeData();
           }
         }
       });
@@ -189,16 +184,4 @@ export class CaseWorkerComponent implements OnInit {
     Auth.signOut();
   }
 
-  getWelcomeData(){
-    this.service.getUserData(this.caseWorkerId).subscribe((data) => {
-      this.userInfo = data;
-      console.log("CaseInfo:",this.userInfo);
-      this.name = this.userInfo[0]?.nick_name;
-      this.profilePic = this.userInfo[0]?.photo;
-      if (this.profilePic === null) {
-        this.profilePic = '../assets/images/user-profile.jpg';
-      }
-    //  document.getElementById("overlay")!.style.display="none"
-    });
-  }
 }

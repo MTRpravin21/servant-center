@@ -14,10 +14,7 @@ import { VeteranprofileService } from './services/veteranprofile.service';
   styleUrls: ['./veteran.component.scss'],
 })
 export class VeteranComponent implements OnInit {
-  public name: any;
   public data: any;
-  public image: any;
-  public userInfo: any;
 
   username!: string;
   veteranId!: number;
@@ -127,7 +124,6 @@ export class VeteranComponent implements OnInit {
                 this.cacheData.set('loginId', this.veteranId);
                 if (this.veteranId) {
                   this.isShowComponent = true;
-                  this.displayWelcomeData();
                 }
               } else if (response.data.length === 0) {
                  console.log('username is not present')
@@ -177,7 +173,6 @@ export class VeteranComponent implements OnInit {
           console.log('web_party_id', this.veteranId);
           if (this.veteranId) {
             this.isShowComponent = true;
-            this.displayWelcomeData();
           }
         }
       });
@@ -192,18 +187,5 @@ export class VeteranComponent implements OnInit {
   }
   onLogoutClick() {
     Auth.signOut();
-  }
-
-  displayWelcomeData(){
-    this.veteranId = this.cacheData.get("veteranId");
-    this.profileService.getProfileData(this.veteranId).subscribe((data) => { 
-      this.userInfo = data;
-      this.name = this.userInfo.data[0].nick_name;
-      this.image = this.userInfo.data[0].photo;
-      if (this.image === null) {
-        this.image = '../assets/images/user-profile.jpg';
-      }
-      //document.getElementById("overlay")!.style.display="none"
-    });
   }
 }

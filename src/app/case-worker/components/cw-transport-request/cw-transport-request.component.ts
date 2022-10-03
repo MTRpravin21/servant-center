@@ -185,12 +185,12 @@ let obj={
       this.greyingOut = false;
         this.sucessMessage();
         setTimeout(() => {
-          this.refreshRequestComponent();
+          this.refreshRequestComponent('case-worker/messages');
         }, 500);
 
     }else if (data.responseStatus === 'FAILURE') {
       this.errorMessage();
-      this.refreshRequestComponent();
+      this.refreshRequestComponent('case-worker/messages');
     }
     
    });
@@ -216,12 +216,19 @@ let obj={
       });
     }
 
-    refreshRequestComponent() {
-      let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-      this.router.navigate([currentUrl]);
-      });
-    }
+    // refreshRequestComponent() {
+    //   let currentUrl = this.router.url;
+    //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //   this.router.navigate([currentUrl]);
+    //   this.router.navigate(['/case-worker/messages']);
+     
+    //   });
+   // }
+
+   refreshRequestComponent(url:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([url]));
+ }
 
   reset() {
     this.buildForm();

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, isDevMode, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/case-worker/services/data.service';
@@ -12,8 +12,7 @@ import { ClipBoardService } from '../../services/clip-board.service';
   providers: [MessageService],
 })
 export class WelcomeHeaderComponent implements OnInit {
-  @Input() public name: any;
-  @Input() public image: any;
+  nickName: any;
   imageObj!: File;
   veteranId!: number;
   imageUrl!: any;
@@ -21,6 +20,7 @@ export class WelcomeHeaderComponent implements OnInit {
   caseWorkerId!: number;
   loginId!: number;
   imageFileName!: string;
+  private isDev = isDevMode();
 
   constructor(
     private profileservice: VeteranprofileService,
@@ -32,7 +32,11 @@ export class WelcomeHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('welcome header component');
-    this.userGroup=this.cacheData.get('userGroup');
+    if (this.isDev) {
+      this.userGroup = 'VETERAN';
+    } else {
+      this.userGroup = this.cacheData.get('userGroup');
+    }
     if (this.userGroup.toUpperCase() === 'VETERAN') {
       this.loginId = this.cacheData.get('veteranId');
     } else if (this.userGroup.toUpperCase() === 'CASEWORKER') {
@@ -63,7 +67,7 @@ export class WelcomeHeaderComponent implements OnInit {
 
     if (this.loginId) {
       this.profileservice
-        .profileimageUpload(imageForm,this.loginId)
+        .profileimageUpload(imageForm, this.loginId)
         .subscribe((response) => {
           console.log(response);
           if (response.responseStatus == 'SUCCESS') {
@@ -82,6 +86,7 @@ export class WelcomeHeaderComponent implements OnInit {
     if (this.userGroup.toUpperCase() === 'VETERAN') {
       this.profileservice.getProfileData(this.loginId).subscribe((data) => {
         let veteranDetails = data;
+        this.nickName = veteranDetails.data[0].nick_name;
         let veteranImageName = veteranDetails.data[0].photo;
         console.log('veteran db photo name', veteranImageName);
         if (veteranImageName === null) {
@@ -93,6 +98,7 @@ export class WelcomeHeaderComponent implements OnInit {
     } else if (this.userGroup.toUpperCase() === 'CASEWORKER') {
       this.service.getUserData(this.loginId).subscribe((data) => {
         let caseWorkerInfo = data;
+        this.nickName = caseWorkerInfo?.nick_name;
         let caseWorkerImageName = caseWorkerInfo[0]?.photo;
         console.log('caseworker db photo name', caseWorkerImageName);
         if (caseWorkerImageName === null) {
@@ -107,8 +113,7 @@ export class WelcomeHeaderComponent implements OnInit {
   displayImageFromAWS(fileName: string) {
     this.profileservice.getProfileImage(fileName).subscribe((response: any) => {
       console.log(response);
-      var imageSrc =
-        'data:application/octet-stream;base64,' + response.data;
+      var imageSrc = 'data:application/octet-stream;base64,' + response.data;
       this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
       console.log('image', this.imageUrl);
     });
