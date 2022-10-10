@@ -1,4 +1,4 @@
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { Component, isDevMode, OnInit, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/case-worker/services/data.service';
@@ -56,9 +56,13 @@ export class WelcomeHeaderComponent implements OnInit {
         this.imageObj.type === 'image/jpeg' ||
         this.imageObj.type === 'image/png'
       ) {
+        let sanitizedFileName = this.sanitization.sanitize(
+          SecurityContext.HTML,
+          this.imageObj.name
+        );
         let imageForm = new FormData();
         const regex = new RegExp('[^.]+$');
-        let extension = this.imageObj.name.match(regex);
+        let extension = sanitizedFileName?.match(regex);
         let imageType = extension?.[0];
         let currentDate = new Date();
         let todayDate =
@@ -124,9 +128,14 @@ export class WelcomeHeaderComponent implements OnInit {
   displayImageFromAWS(fileName: string) {
     this.profileservice.getProfileImage(fileName).subscribe((response: any) => {
       console.log(response);
-      var imageSrc = 'data:application/octet-stream;base64,' + response.data;
-      this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
-      console.log('image', this.imageUrl);
+      if (response.responseStatus == 'SUCCESS') {
+        var imageSrc =
+          'data:application/' +
+          response.data.contentType +
+          ';base64,' +
+          response.data.imageBody;
+        this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
+      }
     });
   }
 
