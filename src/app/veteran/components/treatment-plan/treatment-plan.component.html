@@ -1051,352 +1051,346 @@
                 <span>TREATMENT ISSUES & GOALS</span>
               </p>
             </div>
-            <div *ngFor="let item of treatmentArr; let j = index">
-              <div>
-                <div *ngFor="let goal of treatmentGoals; let k = index">
-                  <div class="p-field p-col-12 border-low">
-                    <section class="p-grid" style="margin: 10px 0 20px 0">
-                      <div class="p-col-fixed bullents">
-                        {{ k + 1 }}
-                      </div>
-                      <div class="p-col heading">
-                      {{ goal.label }}
-                      </div>
-                    </section>
-                    <div *ngFor="let item of goal.controls; let i = index">
-                      <div class="p-fluid p-formgrid p-grid">
-                        <section class="p-field p-col-12 p-md-3">
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'PHYSICAL HEALTH'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].physicalHealth[i].goals }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'MENTAL HEALTH'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].mentalHealth[i].goals }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'SUBSTANCE USE'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].substanceUse[i].goals }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'HOUSING'">
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].housing[i].goals }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'INCOME / FINANCIAL / LEGAL'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].incomeLegal[i].goals }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'RELATIONSHIPS'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].relationships[i].goals }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'EDUCATION'">
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].education[i].goals }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'BENEFITS / MEDICAID / SNAP'"
-                          >
-                            <span class="form-subbox">Goal {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].benefits[i].goals }}
-                            </div>
-                          </div>
-                        </section>
-                        <div class="p-field p-col-12 p-md-3">
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'PHYSICAL HEALTH'"
-                          >
-                            <span class="form-subbox"> Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].physicalHealth[i].plans }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'MENTAL HEALTH'"
-                          >
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].mentalHealth[i].plans }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'SUBSTANCE USE'"
-                          >
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].substanceUse[i].plans }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'HOUSING'">
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].housing[i].plans }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'INCOME / FINANCIAL / LEGAL'"
-                          >
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].incomeLegal[i].plans }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'RELATIONSHIPS'"
-                          >
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].relationships[i].plans }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'EDUCATION'">
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].education[i].plans }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'BENEFITS / MEDICAID / SNAP'"
-                          >
-                            <span class="form-subbox">Plan {{ i + 1 }}</span>
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].benefits[i].plans }}
-                            </div>
-                          </div>
-                        </div>
+            <div *ngFor="let item of treatmentArray; let i = index">
+              <section class="p-grid" style="margin: 10px 0 20px 0"  *ngIf="item.physicalHealth.length">
+                <div class="p-col-fixed bullents">
+                  1
+                </div>
+                <div class="p-col heading">
+                  PHYSICAL HEALTH
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.physicalHealth; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.physicalHealth; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.physicalHealth; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.physicalHealth; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+              <section class="p-grid" style="margin: 10px 0 20px 0"  *ngIf="item.mentalHealth.length">
+                <div class="p-col-fixed bullents">
+                  2
+                </div>
+                <div class="p-col heading">
+                  MENTAL HEALTH
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.mentalHealth; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.mentalHealth; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.mentalHealth; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.mentalHealth; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
 
-                        <div class="p-field p-col-12 p-md-3">
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'PHYSICAL HEALTH'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].physicalHealth[i].strategies }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'MENTAL HEALTH'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].mentalHealth[i].strategies }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'SUBSTANCE USE'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].substanceUse[i].strategies }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'HOUSING'">
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].housing[i].strategies }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'INCOME / FINANCIAL / LEGAL'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].incomeLegal[i].strategies }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'RELATIONSHIPS'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].relationships[i].strategies }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'EDUCATION'">
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].education[i].strategies }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'BENEFITS / MEDICAID / SNAP'"
-                          >
-                            <span class="form-subbox"
-                              >Strategy {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{ treatmentArr[j].benefits[i].strategies }}
-                            </div>
-                          </div>
-                        </div>
+              <section class="p-grid" style="margin: 10px 0 20px 0"  *ngIf="item.substanceUse.length">
+                <div class="p-col-fixed bullents">
+                  3
+                </div>
+                <div class="p-col heading">
+                  SUBSTANCE USE
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.substanceUse; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.substanceUse; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.substanceUse; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.substanceUse; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
 
-                        <div class="p-field p-col-12 p-md-3">
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'PHYSICAL HEALTH'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].physicalHealth[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'MENTAL HEALTH'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].mentalHealth[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'SUBSTANCE USE'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].substanceUse[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'HOUSING'">
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].housing[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'INCOME / FINANCIAL / LEGAL'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].incomeLegal[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'RELATIONSHIPS'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].relationships[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div class="box" *ngIf="goal.label === 'EDUCATION'">
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].education[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                          <div
-                            class="box"
-                            *ngIf="goal.label === 'BENEFITS / MEDICAID / SNAP'"
-                          >
-                            <span class="form-subbox"
-                              >Target Date {{ i + 1 }}</span
-                            >
-                            <div class="subbox__content">
-                              {{
-                                treatmentArr[j].benefits[i].targetDate
-                                  | date: "shortDate"
-                              }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              <section class="p-grid" style="margin: 10px 0 20px 0" *ngIf="item.housing.length">
+                <div class="p-col-fixed bullents">
+                  4
+                </div>
+                <div class="p-col heading" >
+                  HOUSING
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.housing; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.housing; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.housing; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.housing; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+
+              <section class="p-grid" style="margin: 10px 0 20px 0"  *ngIf="item.incomeLegal.length">
+                <div class="p-col-fixed bullents">
+                  5
+                </div>
+                <div class="p-col heading">
+                  INCOME / FINANCIAL / LEGAL
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.incomeLegal; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.incomeLegal; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.incomeLegal; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.incomeLegal; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+
+              <section class="p-grid" style="margin: 10px 0 20px 0" *ngIf="item.relationships.length">
+                <div class="p-col-fixed bullents">
+                  6
+                </div>
+                <div class="p-col heading" >
+                  RELATIONSHIPS
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.relationships; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.relationships; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.relationships; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.relationships; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+
+              <section class="p-grid" style="margin: 10px 0 20px 0" *ngIf="item.education.length">
+                <div class="p-col-fixed bullents">
+                  7
+                </div>
+                <div class="p-col heading" >
+                  EDUCATION
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.education; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.education; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.education; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.education; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
+                  </div>
+                </div>
+              </div>
+
+              <section class="p-grid" style="margin: 10px 0 20px 0" *ngIf="item.benefits.length">
+                <div class="p-col-fixed bullents">
+                  8
+                </div>
+                <div class="p-col heading" >
+                  BENEFITS / MEDICAID / SNAP
+                </div>
+              </section>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.benefits; let j = index">
+                    <span class="form-subbox">Goal {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.goals}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.benefits; let j = index">
+                    <span class="form-subbox">Plan {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.plans}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.benefits; let j = index">
+                    <span class="form-subbox">Strategy {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.strategies}}
+                    </div><br>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                  <div *ngFor="let a of item.benefits; let j = index">
+                    <span class="form-subbox">TargetDate {{ j + 1 }}</span>
+                    <div class="subbox__content">
+                      {{a.targetDate | date: "shortDate"}}
+                    </div><br>
                   </div>
                 </div>
               </div>

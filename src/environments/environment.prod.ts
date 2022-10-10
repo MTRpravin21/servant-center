@@ -46,7 +46,8 @@ export const environment = {
     getIAPage4Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-4/',
     postIAPage4Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-4',
     updateProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/uploadImage/',
-    getProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/profileImage/'
+    getProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/profileImage/',
+    getInitialTreatmentPage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-5/'
   },
   localUrl:''
 };

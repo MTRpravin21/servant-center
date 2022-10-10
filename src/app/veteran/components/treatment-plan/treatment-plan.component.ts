@@ -31,6 +31,7 @@ export class TreatmentPlanComponent implements OnInit {
  public persons=['Client','Case Manager','RN']
  public showSpinner:boolean=true;
  public grayOut: boolean=true;
+  treatmentArray: any;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -159,9 +160,85 @@ export class TreatmentPlanComponent implements OnInit {
     this.formView = false;
     this.showTopView();
     this.formData= this.treatmentPlanForm.value;
-    console.log(this.formData)
+    console.log(this.formData);
     this.treatmentArr = this.treatmentPlanForm.get('treatmentIssues')?.value;    
+    console.log(this.treatmentArr[0].physicalHealth);
+    let data = this.treatmentArr[0].physicalHealth;
+    console.log("length",this.treatmentArr[0].physicalHealth.length);
+
+    let physicalHealthData = this.treatmentArr[0].physicalHealth.filter(
+      function (item: any) {
+        if (item.goals != '') {
+          return item;
+        }
+      }
+    );
+    this.treatmentArr[0].physicalHealth = physicalHealthData;
+
+    let mentalHealthData = this.treatmentArr[0].mentalHealth.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].mentalHealth = mentalHealthData;
+
+    let benefitsData = this.treatmentArr[0].benefits.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].benefits = benefitsData;
+
+    let educationData = this.treatmentArr[0].education.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].education = educationData;
+
+    let housingData = this.treatmentArr[0].housing.filter(function (item: any) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].housing = housingData;
+
+    let incomeLegalData = this.treatmentArr[0].incomeLegal.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].incomeLegal = incomeLegalData;
+
+    let relationshipsData = this.treatmentArr[0].relationships.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].relationships = relationshipsData;
+
+    let substanceUseData = this.treatmentArr[0].substanceUse.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].substanceUse = substanceUseData;
+    this.treatmentArray = this.treatmentArr;
+    console.log(' this.treatmentArray', this.treatmentArray);
   }
+  
   showTopView() {
     const p = document.querySelector('#prnt');
     console.log(p)

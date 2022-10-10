@@ -38,6 +38,7 @@ export class RsTreatmentPlanComponent implements OnInit {
   indexRe:number=0;
   indexEd:number=0;
   indexBe:number=0;
+  public goalId!: number;
   
 
   constructor(
@@ -85,99 +86,91 @@ export class RsTreatmentPlanComponent implements OnInit {
       });
         for(let i=0;i<this.data.length;i++){
           if(this.data[i].goal_type === 'physical health'){
-          console.log("goal type identified",this.data[i].goal_type)
           let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
           this.treatmentIssues.controls[0].get('physicalHealth.'+this.indexPh)?.patchValue({
               goals: this.data[i].goal,
               plans: this.data[i].plan,
               strategies: this.data[i].strategy,
               targetDate:targetDate,
+              goalid : this.data[i].goal_id
             });
-            console.log('test',this.treatmentIssues.controls[0].get('physicalHealth.'+this.indexPh));
             this.indexPh++;
           }	
           if(this.data[i].goal_type === 'mental health'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('mentalHealth.'+this.indexMh)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('mentalHealth.'+this.indexMh));
             this.indexMh++;
           }
           if(this.data[i].goal_type === 'substance use'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
-            this.treatmentIssues.controls[0].get('education.'+this.indexSu)?.patchValue({
+            this.treatmentIssues.controls[0].get('substanceUse.'+this.indexSu)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('substanceUse.'+this.indexSu));
             this.indexSu++;
           }
           if(this.data[i].goal_type === 'housing'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('housing.'+this.indexHo)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('housing.'+this.indexHo));
             this.indexHo++;
           }
           if(this.data[i].goal_type === 'social'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('incomeLegal.'+this.indexIn)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('incomeLegal.'+this.indexIn));
             this.indexIn++;
           }
           if(this.data[i].goal_type === 'family'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('relationships.'+this.indexRe)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('relationships.'+this.indexRe));
             this.indexRe++;
           }
           if(this.data[i].goal_type === 'career'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('education.'+this.indexEd)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('education.'+this.indexEd));
             this.indexEd++;
           }
           if(this.data[i].goal_type === 'benefits'){
-            console.log("goal type identified",this.data[i].goal_type)
             let targetDate = this.datepipe.transform(this.data[i].targetdate, 'MM/dd/yyyy')
             this.treatmentIssues.controls[0].get('benefits.'+this.indexBe)?.patchValue({
                 goals: this.data[i].goal,
                 plans: this.data[i].plan,
                 strategies: this.data[i].strategy,
                 targetDate:targetDate,
+                goalid : this.data[i].goal_id
               });
-            console.log('test',this.treatmentIssues.controls[0].get('benefits.'+this.indexBe));
             this.indexBe++;
           }
         }
@@ -309,6 +302,7 @@ export class RsTreatmentPlanComponent implements OnInit {
       plans: ['', Validators.required],
       strategies: ['', Validators.required],
       targetDate: [null, Validators.required],
+      goalid:[''],
     });
   }
 

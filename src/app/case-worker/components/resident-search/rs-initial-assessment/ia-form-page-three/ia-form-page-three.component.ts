@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { IaPage3Service } from 'src/app/case-worker/services/ia-page3.service';
 import { ClipBoardService } from 'src/app/shared/services/clip-board.service';
 import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-ia-form-page-three',
   templateUrl: './ia-form-page-three.component.html',
@@ -26,6 +27,7 @@ export class IaFormPageThreeComponent implements OnInit {
   mentalStatusAssessment!: FormGroup;
   medicalInformation!: FormGroup;
   ideation!: FormGroup;
+  orientationDate: any;
   generalAppearanceList: any = [
     { label: 'Well Groomed', value: 'well groomed' },
     { label: 'Dirty', value: 'dirty' },
@@ -68,13 +70,13 @@ export class IaFormPageThreeComponent implements OnInit {
   selectedAffect: any[] = [];
 
   ideationList = [
-    { label: 'Thoughts of Suicide', key: 'thoughtsOfSuicide' },
-    { label: 'Sucide Plan', key: 'suicidePlan' },
-    { label: 'Thoughts of Homicide', key: 'thoughtsOfHomicide' },
-    { label: 'Homicide Plan', key: 'homicidePlan' },
-    { label: 'Delusional', key: 'delusional' },
-    { label: 'Paranoid', key: 'paranoid' },
-    { label: 'Hallucinations', key: 'hallucinations' },
+    { label: 'Thoughts of Suicide', key: 'thoughtsOfSuicide', value: '' },
+    { label: 'Suicide Plan', key: 'suicidePlan', value: '' },
+    { label: 'Thoughts of Homicide', key: 'thoughtsOfHomicide', value: '' },
+    { label: 'Homicide Plan', key: 'homicidePlan', value: '' },
+    { label: 'Delusional', key: 'delusional', value: '' },
+    { label: 'Paranoid', key: 'paranoid', value: '' },
+    { label: 'Hallucinations', key: 'hallucinations', value: '' },
   ];
   getIdeationList: any [] =[];
 
@@ -101,7 +103,8 @@ export class IaFormPageThreeComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private service: IaPage3Service,
-    private cacheData: ClipBoardService
+    private cacheData: ClipBoardService,
+    private datepipe: DatePipe,
   ) {
     this.selecteVetId = this.cacheData.get('selectedResidentVeteranId');
     console.log('sel', this.selecteVetId);
@@ -113,17 +116,30 @@ export class IaFormPageThreeComponent implements OnInit {
   }
 
   setForm() {
+    
     this.service.getIAPage3(this.selecteVetId).subscribe((res) => {
+      
       this.ia3 = false;
       this.greyingOut = false;
       this.data = res[0];
       this.buildForm();
-
+      
       console.log('this.data', this.data);
       
       if (this.data) {
+        this.orientationDate = new Date(
+          new Date(this.data.orientation_date).toUTCString()
+        );
+        // this.orientationDate =
+        // this.orientationDate.getMonth() +
+        // 1 +
+        // '/' +
+        // (this.orientationDate.getDate() +
+        // 1 )+
+        // '/' +
+        // this.orientationDate.getFullYear()
         this.mentalStatusAssessment.patchValue({
-          date: this.data.orientation_date,
+          date: this.orientationDate,
           time: this.data.orientation_time,
           person: this.data.orientation_person,
           // generalAppearance: this.data.general_appearance,
@@ -159,6 +175,9 @@ export class IaFormPageThreeComponent implements OnInit {
         }
       }
 
+      console.log('sel tf',this.selectedThoughtForum);
+      
+
       for(let i=0;i<this.moodList.length;i++){
         if(this.data.mood_as_expressed.includes(this.moodList[i].value)){
           this.answeredByClient.push(this.moodList[i].value)
@@ -175,19 +194,12 @@ export class IaFormPageThreeComponent implements OnInit {
           }); 
         }
       }
-      const vetObj = this.data.ideation;
-      for(let i=0;i<this.ideationList.length;i++){
-        if(this.data.ideation.includes(this.ideationList[i].key)){
-          this.getIdeationList.push(this.ideationList[i].key)
           this.mentalStatusAssessment.patchValue({
-            // ideation : {'thoughtsOfSuicide': 'thoughtsOfSuicide','Paranoid':''}
-            ideation :this.getIdeationList
+            ideation : JSON.parse(this.data.ideation)
           }); 
-        }
-      }
-      console.log('i list', this.getIdeationList);
-      
-        
+
+          console.log('json', JSON.parse(this.data.ideation));
+          
         this.medicalInformation.patchValue({
           primaryPhysicianName: this.data.primary_physician,
           phone: this.data.primary_physician_phone,
@@ -240,6 +252,7 @@ export class IaFormPageThreeComponent implements OnInit {
           currentTreatment: null,
         });
       }
+      
     });
   }
 
@@ -256,10 +269,10 @@ export class IaFormPageThreeComponent implements OnInit {
 
     this.mentalStatusAssessment = this.fb.group({
       veteranId: [this.selecteVetId],
-      date: [''],
-      time: [''],
-      place: [''],
-      person: [''],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      place: ['', Validators.required],
+      person: ['', Validators.required],
       generalAppearance: [this.selectedgeneralAppearance, Validators.required],
       thoughtForum: [this.selectedThoughtForum, Validators.required],
       answeredByClient: [this.answeredByClient, Validators.required],
@@ -335,6 +348,10 @@ export class IaFormPageThreeComponent implements OnInit {
     //   'case-worker/resident-search/initial-assessment/page-4'
     // );
     console.log('page 3 values', this.page3Form.value);
+  }
+
+  get iaPage2MA() {
+    return this.mentalStatusAssessment.controls;
   }
 
   next() {

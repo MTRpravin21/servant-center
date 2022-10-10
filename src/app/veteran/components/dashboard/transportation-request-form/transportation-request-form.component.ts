@@ -133,9 +133,12 @@ export class TransportationRequestFormComponent implements OnInit {
       this.transportRequestForm.patchValue({
         city: '',
         selectedState: '',
-        zipcode: '',
+        zipcode: '', 
       });
     } else {
+      this.transportRequestForm.controls["destinationAddress2"].clearValidators();
+      this.transportRequestForm.controls['destinationAddress2'].updateValueAndValidity()
+
       this.showOtherAddressTextBox = false;
       if (evt.value.value === 'Kernersville') {
         this.transportRequestForm.patchValue({

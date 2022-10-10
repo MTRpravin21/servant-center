@@ -13,6 +13,7 @@ export class IaPage5Service {
 
   constructor(private restcs: RestClientService,private http:HttpClient) {}
   private commonUrl=environment.localUrl;
+  private getInitialTreatmentPage = env.serviceUrl.getInitialTreatmentPage;
   private isDev = isDevMode();
 
   public getInitialTreatmentGoalsPage5( endPoint: number): Observable<any> {
@@ -20,7 +21,7 @@ export class IaPage5Service {
     return this.restcs.get(this.commonUrl+'initialAssessment/page-5/'+endPoint);
     } else{
       //env api goes here
-      return this.restcs.post('api goes here');
+      return this.restcs.post(this.getInitialTreatmentPage+endPoint);
     }
 }
 

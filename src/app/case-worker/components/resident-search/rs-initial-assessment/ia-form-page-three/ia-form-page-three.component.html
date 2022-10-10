@@ -1,11 +1,12 @@
 <p-toast position="top-center"></p-toast>
-<div *ngIf="greyingOut" id="overlay">  </div>
-  <div class="center-spinner">
-    <p-progressSpinner *ngIf="ia3" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-  </div>
+<div *ngIf="greyingOut" id="overlay"> </div>
+<div class="center-spinner">
+  <p-progressSpinner *ngIf="ia3" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5"
+    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
 <div class="page1-form-container p-mt-4">
-  <form [formGroup]="page3Form" (ngSubmit)="onSubmit()" *ngIf="page3Form">
-    <h3>Mental Status Assessment</h3>
+  <form [formGroup]="page3Form" (ngSubmit)="onSubmit()" *ngIf="page3Form" ngNativeValidate>
+    <h3>Mental Status Assessment <i>( <span style="color: red;">*</span> mandatory fields)</i></h3>
     <div formGroupName="mentalStatusAssessment">
       <h4>Orientation</h4>
       <div class="p-fluid p-formgrid p-grid">
@@ -14,19 +15,26 @@
         </div> -->
         <div class="p-field p-col-12 p-md-6">
           <span class="label-title">Date</span>
-          <input pInputText formControlName="date" type="text" placeholder="date">
+          <!-- <input pInputText formControlName="date" type="date" placeholder="date"> -->
+          <p-calendar formControlName=date [inline]=false [showIcon]=true placeholder="Date"></p-calendar>
+          <!-- <small class="error" *ngIf="iaPage2MA.date.errors?.required && iaPage2MA.date.touched">Orientation date is required.</small> -->
         </div>
         <div class="p-field p-col-12 p-md-6">
           <span class="label-title">Time</span>
-          <input pInputText formControlName="time" type="text" placeholder="date">
+          <input pInputText formControlName="time" type="time" placeholder="Time">
+          <!-- <p-calendar formControlName="time" [timeOnly]="true" [showTime]="true" placeholder="Time" [showIcon]="true"
+            icon="pi pi-angle-down" class="input-cal"></p-calendar> -->
+            <small class="error" *ngIf="iaPage2MA.time.errors?.required && iaPage2MA.time.touched">Orientation time is required.</small>
         </div>
         <div class="p-field p-col-12 p-md-6">
           <span class="label-title">Place</span>
           <input type="text" pInputText formControlName=place placeholder="Place">
+          <small class="error" *ngIf="iaPage2MA.place.errors?.required && iaPage2MA.place.touched">Orientation place is required.</small>
         </div>
         <div class="p-field p-col-12 p-md-6">
           <span class="label-title">Person</span>
           <input type="text" pInputText formControlName=person placeholder="Person">
+          <small class="error" *ngIf="iaPage2MA.person.errors?.required && iaPage2MA.person.touched">Orientation person is required.</small>
         </div>
       </div>
       <h4>General Appearance</h4>
@@ -38,6 +46,7 @@
               [value]=generalAppearance.value formControlName="generalAppearance"
               [(ngModel)]="selectedgeneralAppearance"></p-checkbox>
           </div>
+          <small class="error" *ngIf="iaPage2MA.generalAppearance.errors?.required && iaPage2MA.generalAppearance.touched">General appearance is required.</small>
         </div>
       </div>
       <h4>Thought Forum</h4>
@@ -89,7 +98,7 @@
               <label for="ideation{{i}}-yes" class="p-ml-2">Yes</label>
             </div>
             <div class="p-field-radiobutton">
-              <p-radioButton [name]=ideation.key [formControlName]=ideation.key [value]=''
+              <p-radioButton [name]=ideation.key [formControlName]=ideation.key [value]=ideation.value
                 inputId="ideation-{{i}}-no">
               </p-radioButton>
               <label for="ideation{{i}}-no" class="p-ml-2">No</label>
@@ -102,34 +111,36 @@
         <div class="p-col-12 p-formgroup-inline">
           <label class="p-mr-3 radiobutton-group-label">Recent Memory?</label>
           <div *ngFor="let memory of recentMemory; let i = index" class="p-field-radiobutton">
-            <p-radioButton name="recentMemory" formControlName=recentMemory [value]=memory.value inputId="memory{{i}}"></p-radioButton>
+            <p-radioButton name="recentMemory" formControlName=recentMemory [value]=memory.value inputId="memory{{i}}">
+            </p-radioButton>
             <label for="memory{{i}}" class="p-ml-3">{{memory.label}}</label>
           </div>
         </div>
-        </div>
-        <div class="p-field p-md-6">
-          <div class="p-col-12 p-formgroup-inline">
-            <label class="p-mr-3 radiobutton-group-label">Remote Memory?</label>
-            <div *ngFor="let memory of remoteMemory; let i = index" class="p-field-radiobutton">
-              <p-radioButton name="remoteMemory" formControlName=remoteMemory [value]=memory.value inputId="memory{{i}}"></p-radioButton>
-              <label for="memory{{i}}" class="p-ml-3">{{memory.label}}</label>
-            </div>
-          </div>
-          </div>
-      <div class="p-fluid p-formgrid p-grid" >
-      <div class="p-field p-col-3">
-        <span class="label-title">Give Examples(Recent Memory)</span>
-        <textarea [rows]="7" [cols]="40" formControlName=recentMemoComments class="userInput" pInputTextarea
-          placeholder="Comment"></textarea>
       </div>
-      <div class="p-field p-col-3">
-        <span class="label-title">Give Examples(Remote Memory)</span>
-        <textarea [rows]="7" [cols]="40" formControlName=remoteMemoComments class="userInput" pInputTextarea
-          placeholder="Comment"></textarea>
+      <div class="p-field p-md-6">
+        <div class="p-col-12 p-formgroup-inline">
+          <label class="p-mr-3 radiobutton-group-label">Remote Memory?</label>
+          <div *ngFor="let memory of remoteMemory; let i = index" class="p-field-radiobutton">
+            <p-radioButton name="remoteMemory" formControlName=remoteMemory [value]=memory.value inputId="memory{{i}}">
+            </p-radioButton>
+            <label for="memory{{i}}" class="p-ml-3">{{memory.label}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-3">
+          <span class="label-title">Give Examples(Recent Memory)</span>
+          <textarea [rows]="7" [cols]="40" formControlName=recentMemoComments class="userInput" pInputTextarea
+            placeholder="Comment"></textarea>
+        </div>
+        <div class="p-field p-col-3">
+          <span class="label-title">Give Examples(Remote Memory)</span>
+          <textarea [rows]="7" [cols]="40" formControlName=remoteMemoComments class="userInput" pInputTextarea
+            placeholder="Comment"></textarea>
+        </div>
       </div>
     </div>
-  </div>
-    <h3>Medical Information</h3>
+    <h3>Medical Information <i>( <span style="color: red;">*</span> mandatory fields)</i></h3>
     <div class="p-fluid p-formgrid p-grid" formGroupName="medicalInformation">
       <div class="p-field p-col-6">
         <span class="label-title">Name of Primary Physician</span>
@@ -208,7 +219,7 @@
     </div>
     <div class="p-d-flex button-container p-mt-4">
       <div class="p-jc-start">
-        <button type="submit" pButton label="Save"></button>
+        <button type="submit" pButton label="Save" [disabled]="!this.page3Form.touched"></button>
         <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2" (click)="reset()"></button>
       </div>
       <div class="p-jc-end">
