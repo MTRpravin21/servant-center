@@ -15,14 +15,14 @@ const routes: Routes = [
       import('./case-worker/case-worker.module').then(
         (m) => m.CaseWorkerModule
       ),
-    canActivate: [CaseWorkerGuard],
+   // canActivate: [CaseWorkerGuard],
   },
   {
     path: 'veteran',
     loadChildren: () =>
       import('./veteran/veteran.module').then((m) => m.VeteranModule),
 
-    canActivate: [VeteranGuard],
+   // canActivate: [VeteranGuard],
   },
   { path: '**', redirectTo: 'veteran' },
 ];
