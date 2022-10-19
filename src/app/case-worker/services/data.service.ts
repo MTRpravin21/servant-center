@@ -56,7 +56,7 @@ export class DataService {
     if (this.isDev){
     return this.http.put(this.serviceUrl+'updateTreatmentPlanDetails/save/'+vetID,data);
     } else {
-      return this.restcs.get(this.updateTreatmentPlanAPI+vetID,data);
+      return this.http.put(this.updateTreatmentPlanAPI+vetID,data);
     }
   } 
   imageUpload(imageForm: FormData) {

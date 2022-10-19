@@ -64,14 +64,7 @@ export class WelcomeHeaderComponent implements OnInit {
         const regex = new RegExp('[^.]+$');
         let extension = sanitizedFileName?.match(regex);
         let imageType = extension?.[0];
-        let currentDate = new Date();
-        let todayDate =
-          currentDate.getDate() +
-          '-' +
-          (currentDate.getMonth() + 1) +
-          '-' +
-          currentDate.getFullYear();
-        let fileName = this.loginId + '_' + todayDate + '.' + imageType;
+        let fileName = this.loginId + '_image' + '.' + imageType;
         imageForm.append('image', this.imageObj);
         imageForm.append('imageName', fileName);
         imageForm.append('userGroup', this.userGroup);

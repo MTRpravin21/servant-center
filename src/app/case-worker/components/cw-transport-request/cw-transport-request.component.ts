@@ -115,7 +115,6 @@ export class CwTransportRequestComponent implements OnInit, OnChanges {
   }
 
   buildForm() {
-   // let newAappointmentDate=this.datePipe.transform(this.caseWorker.appointment_date,'yyyy-MM-dd')
     this.transportRequestForm = this.formbuilder.group({
       firstName: [this.firstName, Validators.required],
       lastName: [this.lastName, Validators.required],
@@ -185,12 +184,12 @@ let obj={
       this.greyingOut = false;
         this.sucessMessage();
         setTimeout(() => {
-          this.refreshRequestComponent('case-worker/messages');
+          this.refreshRequestComponent();
         }, 500);
 
     }else if (data.responseStatus === 'FAILURE') {
       this.errorMessage();
-      this.refreshRequestComponent('case-worker/messages');
+      this.refreshRequestComponent();
     }
     
    });
@@ -216,19 +215,18 @@ let obj={
       });
     }
 
-    // refreshRequestComponent() {
-    //   let currentUrl = this.router.url;
-    //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    //   this.router.navigate([currentUrl]);
-    //   this.router.navigate(['/case-worker/messages']);
-     
-    //   });
-   // }
-
-   refreshRequestComponent(url:string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-    this.router.navigate([url]));
- }
+   refreshRequestComponent() {
+    const prev = this.router.routeReuseStrategy.shouldReuseRoute;
+    const prevOSN = this.router.onSameUrlNavigation;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+  
+    this.router.navigate([this.router.url]);
+    setTimeout(() => {
+      this.router.routeReuseStrategy.shouldReuseRoute = prev;
+      this.router.onSameUrlNavigation = prevOSN;      
+    }, 0);
+  }
 
   reset() {
     this.buildForm();
