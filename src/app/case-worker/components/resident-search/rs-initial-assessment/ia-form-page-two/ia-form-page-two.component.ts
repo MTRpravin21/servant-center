@@ -53,13 +53,12 @@ export class IaFormPageTwoComponent implements OnInit {
       this.greyingOut = false;
       this.data = res[0];
       console.log('this data',this.data);
-      
-      // this.serviceDates = this.datepipe.transform(
-      //   this.data.service_dates,
-      //   'MM/dd/yyyy'
-      // );
       this.buildForm();
       if(this.data){
+        this.serviceDates = this.datepipe.transform(
+          this.data.service_dates,
+          'MM/dd/yyyy'
+        );
       this.educationAndEmploymentHistory.patchValue({
         highestGradeCompleted: this.data.highest_education_grade,
         nameAndLocation: this.data.school_name,
@@ -71,7 +70,7 @@ export class IaFormPageTwoComponent implements OnInit {
         military: this.data.active_military_status,
         branch: this.data.military_branch,
         typeOfDischarge: this.data.discharge_type,
-        serviceDate: this.data.service_dates,
+        serviceDate: this.serviceDates,
         serviceLocation: this.data.service_location ,
         otherTrainingEducation: this.data.other_training_education,
         currentEmployer: this.data.current_employer,
@@ -195,6 +194,7 @@ export class IaFormPageTwoComponent implements OnInit {
         this.greyingOut = false;
         this.successMessage();
         console.log('Submitted');
+        this.setForm();
         }
         else if(data.responseStatus === 'FAILURE'){
           this.errorMessage();
@@ -227,6 +227,8 @@ export class IaFormPageTwoComponent implements OnInit {
   }
 
   reset(){
+    this.ia2 = true;
+    this.greyingOut = true;
     this.setForm();
   }
 

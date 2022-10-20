@@ -58,8 +58,8 @@ export class TreatmentPlanComponent implements OnInit {
         this.showSpinner=false;
         this.grayOut=false;
       }
-      this.intake_date = this.datepipe.transform(this.data.intake_date, 'dd/MM/yyyy');
-      this.date_of_birth = this.datepipe.transform(this.data.date_of_birth, 'dd/MM/yyyy');
+      this.intake_date = this.datepipe.transform(this.data.intake_date, 'MM/dd/yyyy');
+      this.date_of_birth = this.datepipe.transform(this.data.date_of_birth, 'MM/dd/yyyy');
       console.log('TP API data->',res);
       this.buildForm();
       this.treatmentPlanForm.patchValue({
@@ -351,15 +351,17 @@ export class TreatmentPlanComponent implements OnInit {
     });
   }
 
-  refreshpage() {
+  refreshpage(){
+    const prev = this.router.routeReuseStrategy.shouldReuseRoute;
+    const prevOSN = this.router.onSameUrlNavigation;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
     setTimeout(() => {
-      let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-         this.router.navigate([currentUrl]);
-     }, 1500);
-    
-    }
+      this.router.routeReuseStrategy.shouldReuseRoute = prev;
+      this.router.onSameUrlNavigation = prevOSN;      
+    }, 0);
+  }
 
   resetForm() {
     this.formView=true;

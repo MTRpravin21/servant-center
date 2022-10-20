@@ -1,9 +1,9 @@
-
 <p-toast position="top-center"></p-toast>
-<div *ngIf="greyingOut" id="overlay">  </div>
-  <div class="center-spinner">
-    <p-progressSpinner *ngIf="submitted" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-  </div>
+<div *ngIf="greyingOut" id="overlay"> </div>
+<div class="center-spinner">
+  <p-progressSpinner *ngIf="submitted" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+    strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
 <app-item-header [title]="title"></app-item-header>
 <div class="progress-notes--container">
   <p-toolbar id="progress-notes--mainToolbar">
@@ -23,12 +23,13 @@
                 <small class="error" *ngIf="progressNoteForm.goalTitle.errors?.maxlength">Goal title should be at max of
                   50 characters.</small>
               </div>
-                <div class="p-field p-col-12 p-sm-12">
-                  <p-dropdown [options]="goalTypes" formControlName="goalType" placeholder="Select a Goal Type" optionLabel="name" optionValue = "value" [showClear]="true"></p-dropdown>
-                  <small class="error"
+              <div class="p-field p-col-12 p-sm-12">
+                <p-dropdown [options]="goalTypes" formControlName="goalType" placeholder="Select a Goal Type"
+                  optionLabel="name" optionValue="value" [showClear]="true"></p-dropdown>
+                <small class="error"
                   *ngIf="progressNoteForm.goalType.errors?.required && progressNoteForm.goalType.touched">Goal
                   type is required.</small>
-                </div>
+              </div>
               <div class="p-field p-col-12 p-sm-12">
                 <textarea [rows]="6" formControlName="goalDescription" pInputTextarea placeholder="Goal Description"
                   class="inputFromUser"></textarea>
@@ -61,11 +62,11 @@
         </p-dialog>
       </div>
       <!-- add note modal ends -->
-      <button type="button" pButton icon="fas fa-plus-circle" label="Add Notes" class="p-button-outlined"
+      <button type="button" pButton icon="fas fa-plus-circle" label="Add Notes" class="p-button-outlined addNotesButton"
         (click)="showDialog()"></button>
     </div>
     <div class="p-toolbar-group-right">
-      <input type="text" [(ngModel)]="searchText" pInputText placeholder="Search" class="p-ml-2" />
+      <input type="text" [(ngModel)]="searchText" pInputText placeholder="Search" class="search-dialog"/>
       <!-- modal for pop-out -->
       <div>
         <p-dialog header="Progress Notes" [(visible)]="displayList" [modal]="true" [draggable]="false"
@@ -92,12 +93,13 @@
                 <p-toolbar id="progress-notes--mainToolbar">
                   <div class="p-toolbar-group-left  p-col-9">
                     <span class="p-mr-2">InProgress</span>
-                    <p-inputSwitch [(ngModel)]="progressNote.goalState" (onChange)="changed(progressNote.goalId, progressNote.goalState)"
-                    class="open-close-switch"></p-inputSwitch>                  <span class="p-ml-2">Complete</span>
-                  <div class="p-col-12 goal-header p-d-flex p-jc-end">
-                    <div class="goal-header--date">
-                      Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'}}
-                    </div>
+                    <p-inputSwitch [(ngModel)]="progressNote.goalState"
+                      (onChange)="changed(progressNote.goalId, progressNote.goalState)" class="open-close-switch">
+                    </p-inputSwitch> <span class="p-ml-2">Complete</span>
+                    <div class="p-col-12 goal-header p-d-flex p-jc-end">
+                      <div class="goal-header--date">
+                        Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'}}
+                      </div>
                     </div>
                   </div>
                 </p-toolbar>
@@ -106,8 +108,8 @@
                 <div class="goal-header--title">
                   {{ progressNote.goalTitle | titlecase}}
                 </div>
-                </div>
-                <div class="p-col-12 goal-header p-d-flex p-jc-between">
+              </div>
+              <div class="p-col-12 goal-header p-d-flex p-jc-between">
                 <div class="goal-header--date">
                   Goal Type: {{ progressNote.goalType | titlecase}}
                 </div>
@@ -136,12 +138,13 @@
         <p-toolbar id="progress-notes--mainToolbar">
           <div class="p-toolbar-group-left  p-col-7">
             <span class="p-mr-2">InProgress</span>
-            <p-inputSwitch [(ngModel)]="progressNote.goalState" (onChange)="changed(progressNote.goalId, progressNote.goalState)"
-            class="open-close-switch"></p-inputSwitch>                  <span class="p-ml-2">Complete</span>
-          <div class="p-col-12 goal-header p-d-flex p-jc-end">
-            <div class="goal-header--date">
-              Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'}}
-            </div>
+            <p-inputSwitch [(ngModel)]="progressNote.goalState"
+              (onChange)="changed(progressNote.goalId, progressNote.goalState)" class="open-close-switch">
+            </p-inputSwitch> <span class="p-ml-2">Complete</span>
+            <div class="p-col-12 goal-header p-d-flex p-jc-end">
+              <div class="goal-header--date">
+                Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'}}
+              </div>
             </div>
           </div>
         </p-toolbar>
@@ -149,9 +152,9 @@
       <div class="p-col-12 goal-header p-d-flex p-jc-between">
         <div class="goal-header--title">{{ progressNote.goalTitle | titlecase}}</div>
       </div>
-        <div class="p-col-12 goal-header p-d-flex p-jc-between">
+      <div class="p-col-12 goal-header p-d-flex p-jc-between">
         <div class="goal-header--date">Goal Type: {{ progressNote.goalType | titlecase}}</div>
-         <!-- <div class="goal-header--date">Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'  }}</div> -->
+        <!-- <div class="goal-header--date">Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'  }}</div> -->
       </div>
       <div class="p-col-12 goal-content">
         <p class="goal-description" id="goal-desc--{{ i }}">

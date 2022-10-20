@@ -66,8 +66,8 @@ export class RsTreatmentPlanComponent implements OnInit {
           this.grayOut=false;
         }
       this.header=this.data[0];
-      this.intake_date = this.datepipe.transform(this.header.intake_date, 'dd/MM/yyyy');
-      this.date_of_birth = this.datepipe.transform(this.header.date_of_birth, 'dd/MM/yyyy');  
+      this.intake_date = this.datepipe.transform(this.header.intake_date, 'MM/dd/yyyy');
+      this.date_of_birth = this.datepipe.transform(this.header.date_of_birth, 'MM/dd/yyyy');  
       this.treatmentArr = this.treatmentPlanForm.get('treatmentIssues')?.value;
       console.log('data',this.data) 
 

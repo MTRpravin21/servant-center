@@ -1,3 +1,8 @@
+<p-toast position="top-center"></p-toast>
+<div *ngIf="greyingOut" id="overlay">  </div>
+  <div class="center-spinner">
+    <p-progressSpinner *ngIf="ia5" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+  </div>
 <form [formGroup]="page5Form" (ngSubmit)="onSubmit()" *ngIf="page5Form">
   <h3>Preliminary Treatment Goals</h3>
   <div class="p-fluid p-formgrid p-grid" formGroupName="preliminaryTreatmentGoals">
@@ -15,36 +20,81 @@
       <input type="text" pInputText formControlName=longTermGoals
         placeholder="For the next year and Hopes for the Future">
     </div>
+    <h4>Strengths and Resources</h4>
     <div class="p-field p-md-12">
-      <span class="label-title">Strengths and Resources:</span>
-      <input type="text" pInputText formControlName=strengthAndResources
-        placeholder="What am I good at doing? What do people admire about me?">
-    </div>
-    <div class="p-field p-md-12">
-      <span class="label-title">Preferences:</span>
-      <input type="text" pInputText formControlName=preferences
-        placeholder="What is important to me? What are the people/activities/things/places that matter to me in everyday life? What I don't want in my life?">
-    </div>
-    <div class="p-field p-md-12">
-      <span class="label-title">Needs:</span>
-      <input type="text" pInputText formControlName=needs
-        placeholder="What would I change about my life? What is not working in my lefe? What do I need in order to be an active part of my community? What do I need to be healthy and safe?">
-    </div>
-    <div class="p-field p-md-12">
-      <span class="label-title">Supports:</span>
-      <input type="text" pInputText formControlName=supports
-        placeholder="What do others need to know or do to support me best in relationships, in things I like to do, in work or school and ways to stay healthy and safe?">
+      <span class="label-title">What are My Strengths?</span>
+      <input type="text" pInputText formControlName=whatAreMyStrengths placeholder="My Strengths">
     </div>
     <div class="p-field p-md-6">
-      <span class="label-title">Additional Comments:</span>
-      <textarea type="text" pInputText formControlName=additionalComments placeholder="Comments"></textarea>
+      <span class="label-title">What am I Good at Doing and What do People Do Admire About Me?</span>
+      <input type="text" pInputText formControlName=admiredAboutMe placeholder="People Admire About Me">
+    </div>
+    <div class="p-field p-md-6">
+      <span class="label-title">What are my Talents/Gifts</span>
+      <input type="text" pInputText formControlName=talents placeholder="Talents/Gifts">
+    </div>
+    </div>
+    <h4>Things That Matter to Me in Everyday Life</h4>
+    <div class="p-fluid p-formgrid p-grid" formGroupName="preliminaryTreatmentGoals">
+    <div class="p-field p-md-4">
+      <span class="label-title">Peoples Important to Me</span>
+      <input type="text" pInputText formControlName=people placeholder="Important to Me">
+    </div>
+    <div class="p-field p-md-4">
+      <span class="label-title">Activities Important to Me</span>
+      <input type="text" pInputText formControlName=activities placeholder="Important to Me">
+    </div>
+    <div class="p-field p-md-4">
+      <span class="label-title">Places Important to Me</span>
+      <input type="text" pInputText formControlName=places placeholder="Important to Me">
+    </div>
+    <div class="p-field p-md-12">
+      <span class="label-title">Peoples Seeing Me as Important</span>
+      <input type="text" pInputText formControlName=peopleSeeingMeAsImportant placeholder="Important for Others">
+    </div>
+  </div>
+  <h4>What I don't Want in My Life?</h4>
+  <div class="p-fluid p-formgrid p-grid" formGroupName="preliminaryTreatmentGoals">
+    <div class="p-field p-md-6">
+      <span class="label-title">People Not Needed </span>
+      <input type="text" pInputText formControlName=peopleNotNeeded placeholder="Not Important to Me">
+    </div>
+    <div class="p-field p-md-6">
+      <span class="label-title">Things Not Needed</span>
+      <input type="text" pInputText formControlName=thingsNotNeeded placeholder="Not Important to Me">
+    </div>
+  </div>
+  <h4>Needs</h4>
+  <div class="p-fluid p-formgrid p-grid" formGroupName="preliminaryTreatmentGoals">
+    <div class="p-field p-md-6">
+      <span class="label-title">What Would I Change About Myself?</span>
+      <input type="text" pInputText formControlName=changeAboutMyself placeholder="Change About Myself">
+    </div>
+    <div class="p-field p-md-6">
+      <span class="label-title">What is Not Working in My Life?</span>
+      <input type="text" pInputText formControlName=notWorkingInLife placeholder="Not Working">
+    </div>
+    <div class="p-field p-md-12">
+      <span class="label-title">What do I Need in Order to be an Active Part of My Community?</span>
+      <input type="text" pInputText formControlName=activePartCommunity placeholder="To Be Active Part of Community">
+    </div>
+    <div class="p-field p-md-12">
+      <span class="label-title">What do I Need to be Healthy and Safe?</span>
+      <input type="text" pInputText formControlName=healthyAndSafe placeholder="To Be Healthy and Safe">
+    </div>
+  </div>
+  <h4>Supports</h4>
+  <div class="p-fluid p-formgrid p-grid" formGroupName="preliminaryTreatmentGoals">
+    <div class="p-field p-md-12">
+      <span class="label-title">What Do Others Need to Know or Do to Support Me Best in Relationship?</span>
+      <input type="text" pInputText formControlName=othersDoBest placeholder="Supports">
     </div>
   </div>
   <!-- save -->
   <div class="p-d-flex button-container p-mt-4">
     <div class="p-jc-start">
-      <button type="submit" pButton label="Save" [disabled]="true"></button>
-      <button type="button" pButton label="Cancel" class="p-button-outlined p-ml-2"></button>
+      <button type="submit" pButton label="Save" [disabled]="!this.page5Form.touched"></button>
+      <button type="button" pButton label="Cancel" (click)="cancel()" class="p-button-outlined p-ml-2"></button>
     </div>
     <div class="p-jc-end">
       <button type="button" pButton label="Back" (click)="goBack()"></button>
