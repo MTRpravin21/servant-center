@@ -62,4 +62,8 @@ export class VeteranprofileService {
       return this.restcs.get(this.profileGetImgAPI+imageName);
     }  
    }
+
+   getSecreteManagerData():Observable<any> {
+    return this.http.get(this.commonUrl+'getSecret');
+   }
 }

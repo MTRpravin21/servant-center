@@ -82,6 +82,9 @@ export class VeteranComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.profileService.getSecreteManagerData().subscribe((resp:any)=>{
+      console.log('SecretsManager data====>',resp)
+    })
    // document.getElementById("overlay")!.style.display="block";
     console.log('veteran component');
     this.getLoginId()
