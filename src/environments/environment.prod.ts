@@ -47,7 +47,12 @@ export const environment = {
     postIAPage4Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-4',
     updateProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/uploadImage/',
     getProfileImage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/profileImage/',
-    getInitialTreatmentPage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-5/'
+    getInitialTreatmentPage: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-5/',
+    getFamilyMembersDetails: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1FD/',
+    postFamilyMembersDetails: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1FD/',
+    updateFamilyMembersDetails: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1FD/',
+    deleteFamilyMembersDetails: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-1FD/',
+    postIAPage5Details: 'https://h0p82a84v8.execute-api.us-east-1.amazonaws.com/test_v1/initialAssessment/page-5/',
   },
   localUrl:''
 };

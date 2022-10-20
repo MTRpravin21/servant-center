@@ -368,3 +368,8 @@ export const goalTypes = [
       name: 'Other'
     },
   ];
+
+  export const livingStatus = [
+    {label: "Living", value: true},
+    {label: "Deceased", value: false}
+  ];

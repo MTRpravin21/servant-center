@@ -139,6 +139,7 @@ export class ProgressNotesComponent implements OnInit {
           this.sucessMessage();
         } else if (data.responseStatus === 'FAILURE') {
           this.someError();
+          this.progressNotes.pop();
         }
         this.getAllProgressNotes();
       });
@@ -181,7 +182,7 @@ export class ProgressNotesComponent implements OnInit {
           this.greyingOut = false;
           console.log('successfully saved the goal status');
           this.statusMessage();
-        } else if (data.responseStatus === 'FAILUER') {
+        } else if (data.responseStatus === 'FAILURE') {
           this.someError();
         }
       });

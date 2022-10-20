@@ -5,3 +5,45 @@
 .error{
   color: red;
 }
+.famButton{
+  background-color: green;
+  border: none;
+}
+.famButton:hover{
+  background-color: white;
+  color: green;
+  text-align: center;
+}
+.famButtonR{
+  background-color: red;
+  border: none;
+  text-align: center;
+}
+.famButtonR:hover{
+  background-color: white;
+  color: red;
+  text-align: center;
+}
+
+.famButtonE{
+    background-color: orange;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.famButtonE:hover{
+  background-color: white;
+  color: orange;
+}
+
+.famButtonCancel{
+  background-color: lightgray;
+  color: black;
+  border: none;
+}
+
+.famButtonCancel:hover{
+  background-color: white;
+  color: black;
+}

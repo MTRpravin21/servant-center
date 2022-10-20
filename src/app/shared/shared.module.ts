@@ -35,6 +35,7 @@ import { WelcomeHeaderComponent } from './components/welcome-header/welcome-head
 import { NoSpecialSymbolsDirective } from './directives/no-special-symbols.directive';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ProfileFormComponent } from './components/profile-form/profile-form.component';
+import { livingPipe } from "../case-worker/components/resident-search/rs-initial-assessment/ia-form-page-one/ia-form-page-one.component";
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -73,6 +74,7 @@ const COMPONENTS = [
   FooterComponent,
   WelcomeHeaderComponent,
   KeysPipe,
+  livingPipe,
   LetterCase,
   ConsentDataComponent,
   NoSpecialSymbolsDirective,

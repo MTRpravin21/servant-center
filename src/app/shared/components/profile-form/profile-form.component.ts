@@ -237,21 +237,4 @@ export class ProfileFormComponent implements OnInit {
     this.resetMessage();
   }
 
-  // displayImage() {
-  //   if (this.veteran.photo === null) {
-  //     this.imageUrl = '../assets/images/user-profile.jpg';
-  //   } else {
-  //     this.displayImageFromAWS(this.veteran.photo);
-  //   }
-  // }
-
-  // displayImageFromAWS(fileName: string) {
-  //   this.service.getProfileImage(fileName).subscribe((response: any) => {
-  //     console.log(response);
-  //     var imageSrc =
-  //       'data:application/octet-stream;base64,' + response.data + '';
-  //     this.imageUrl = this.sanitization.bypassSecurityTrustUrl(imageSrc);
-  //     console.log('image', this.imageUrl);
-  //   });
-  // }
 }

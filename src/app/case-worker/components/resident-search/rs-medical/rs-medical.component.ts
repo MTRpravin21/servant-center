@@ -39,12 +39,9 @@ export class RsMedicalComponent implements OnInit {
     this.getHealthTrackerByVeteranId();
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes)
-  // }
   showSelectedTable(){
     this.cols = [
-      { field: 'note_date', header: 'Date' ,date: true,format: 'dd/MM/yyyy'},
+      { field: 'note_date', header: 'Date' ,date: true,format: 'MM/dd/yyyy'},
       { field: 'measurement', header: 'Measurement' },
       { field: 'tracking_comments', header: 'Comment' },
   ];

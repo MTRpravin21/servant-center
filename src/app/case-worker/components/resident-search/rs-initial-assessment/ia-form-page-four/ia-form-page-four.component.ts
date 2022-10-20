@@ -8,11 +8,11 @@ import { MessageService } from 'primeng/api';
   selector: 'app-ia-form-page-four',
   templateUrl: './ia-form-page-four.component.html',
   styleUrls: ['./ia-form-page-four.component.scss'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class IaFormPageFourComponent implements OnInit {
   public ia4: boolean = true;
-  public greyingOut: boolean= true;
+  public greyingOut: boolean = true;
   submitted!: boolean;
   selecteVetId!: number;
   page4Form!: FormGroup;
@@ -65,8 +65,7 @@ export class IaFormPageFourComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private service: IaPage4Service,
-    private cacheData: ClipBoardService,
-
+    private cacheData: ClipBoardService
   ) {
     this.selecteVetId = this.cacheData.get('selectedResidentVeteranId');
     console.log('sel', this.selecteVetId);
@@ -83,74 +82,73 @@ export class IaFormPageFourComponent implements OnInit {
       this.greyingOut = false;
       this.data = res[0];
       this.buildForm();
-      if(this.data){
-      this.substanceAbuseHistory.patchValue({
-        histOfAlcohol: this.data.alcohol_history,
-        currentlyConsumesAlcohol: this.data.currently_consumes_alcohol,
-        currentAlcoholIntakeFreq: this.data.current_alcohol_intake_freq,
-        histOfDrugs: this.data.drug_use_history,
-        currentlyConsumesDrugs: this.data.currently_uses_drugs,
-        currentDrugIntakeFreq: this.data.current_drug_use_freq,
-        lastUseOfDrugAlcohol: this.data.drug_alcohol_last_use,
-        currentDrugAlcoholTreatment: this.data.current_drug_alcohol_treatment,
-        withdrawalHistory: this.data.withdrawal_history,
-        histOfTobacco: this.data.tobacco_use_history,
-        currentlyConsumesTobacco: this.data.currently_uses_tobacco,
-        currentTobaccoIntakeFreq: this.data.current_tobacco_use_freq,
-        histOfCaffeine: this.data.caffeine_use_history,
-        currentlyConsumesCaffeine: this.data.currently_uses_caffeine,
-        currentCaffeineIntakeFreq: this.data.current_caffeine_use_freq,
-        treatmentPrograms: this.data.treatment_programs,
-       });
-      this.legalHistoryOrIssues.patchValue({
-        everArrested: this.data.ever_arrested,
-        arrestedReason: this.data.arrest_reason,
-        everConvicted: this.data.ever_convicted,
-        convictedReason: this.data.conviction_reason,
-        currentPendingCharges: this.data.current_pending_charges,
-        charges: this.data.charges,
-        outstandingWarrants: this.data.outstanding_warrants,
-        warrantReason: this.data.warrant_reason,
-        onProbationOrParole: this.data.on_probation_or_parole,
-        officerName: this.data.officer_name,
-        officerAddress: this.data.officer_address,
-        probationOrParoleTerms: this.data.probation_or_parole_terms,
-      });
-    }
-    else{
-      this.substanceAbuseHistory.patchValue({
-        histOfAlcohol: null,
-        currentlyConsumesAlcohol: null,
-        currentAlcoholIntakeFreq: null,
-        histOfDrugs: null,
-        currentlyConsumesDrugs: null,
-        currentDrugIntakeFreq: null,
-        lastUseOfDrugAlcohol: null,
-        currentDrugAlcoholTreatment: null,
-        withdrawalHistory: null,
-        histOfTobacco: null,
-        currentlyConsumesTobacco: null,
-        currentTobaccoIntakeFreq: null,
-        histOfCaffeine: null,
-        currentlyConsumesCaffeine: null,
-        currentCaffeineIntakeFreq: null,
-        treatmentPrograms: null,
-       });
-       this.legalHistoryOrIssues.patchValue({
-        everArrested: null,
-        arrestedReason: null,
-        everConvicted: null,
-        convictedReason: null,
-        currentPendingCharges: null,
-        charges: null,
-        outstandingWarrants: null,
-        warrantReason:null,
-        onProbationOrParole:null,
-        officerName: null,
-        officerAddress: null,
-        probationOrParoleTerms: null,
-      });
-    }
+      if (this.data) {
+        this.substanceAbuseHistory.patchValue({
+          histOfAlcohol: this.data.alcohol_history,
+          currentlyConsumesAlcohol: this.data.currently_consumes_alcohol,
+          currentAlcoholIntakeFreq: this.data.current_alcohol_intake_freq,
+          histOfDrugs: this.data.drug_use_history,
+          currentlyConsumesDrugs: this.data.currently_uses_drugs,
+          currentDrugIntakeFreq: this.data.current_drug_use_freq,
+          lastUseOfDrugAlcohol: this.data.drug_alcohol_last_use,
+          currentDrugAlcoholTreatment: this.data.current_drug_alcohol_treatment,
+          withdrawalHistory: this.data.withdrawal_history,
+          histOfTobacco: this.data.tobacco_use_history,
+          currentlyConsumesTobacco: this.data.currently_uses_tobacco,
+          currentTobaccoIntakeFreq: this.data.current_tobacco_use_freq,
+          histOfCaffeine: this.data.caffeine_use_history,
+          currentlyConsumesCaffeine: this.data.currently_uses_caffeine,
+          currentCaffeineIntakeFreq: this.data.current_caffeine_use_freq,
+          treatmentPrograms: this.data.treatment_programs,
+        });
+        this.legalHistoryOrIssues.patchValue({
+          everArrested: this.data.ever_arrested,
+          arrestedReason: this.data.arrest_reason,
+          everConvicted: this.data.ever_convicted,
+          convictedReason: this.data.conviction_reason,
+          currentPendingCharges: this.data.current_pending_charges,
+          charges: this.data.charges,
+          outstandingWarrants: this.data.outstanding_warrants,
+          warrantReason: this.data.warrant_reason,
+          onProbationOrParole: this.data.on_probation_or_parole,
+          officerName: this.data.officer_name,
+          officerAddress: this.data.officer_address,
+          probationOrParoleTerms: this.data.probation_or_parole_terms,
+        });
+      } else {
+        this.substanceAbuseHistory.patchValue({
+          histOfAlcohol: null,
+          currentlyConsumesAlcohol: null,
+          currentAlcoholIntakeFreq: null,
+          histOfDrugs: null,
+          currentlyConsumesDrugs: null,
+          currentDrugIntakeFreq: null,
+          lastUseOfDrugAlcohol: null,
+          currentDrugAlcoholTreatment: null,
+          withdrawalHistory: null,
+          histOfTobacco: null,
+          currentlyConsumesTobacco: null,
+          currentTobaccoIntakeFreq: null,
+          histOfCaffeine: null,
+          currentlyConsumesCaffeine: null,
+          currentCaffeineIntakeFreq: null,
+          treatmentPrograms: null,
+        });
+        this.legalHistoryOrIssues.patchValue({
+          everArrested: null,
+          arrestedReason: null,
+          everConvicted: null,
+          convictedReason: null,
+          currentPendingCharges: null,
+          charges: null,
+          outstandingWarrants: null,
+          warrantReason: null,
+          onProbationOrParole: null,
+          officerName: null,
+          officerAddress: null,
+          probationOrParoleTerms: null,
+        });
+      }
     });
   }
 
@@ -212,8 +210,9 @@ export class IaFormPageFourComponent implements OnInit {
         if (data.responseStatus === 'SUCCESS') {
           this.ia4 = false;
           this.greyingOut = false;
-         this.successMessage();
-        // alert("success");
+          this.successMessage();
+          this.setForm();
+          // alert("success");
         } else if (data.responseStatus === 'FAILURE') {
           this.errorMessage();
         }
@@ -247,7 +246,9 @@ export class IaFormPageFourComponent implements OnInit {
     }
   }
 
-  reset(){
+  reset() {
+    this.ia4 = true;
+    this.greyingOut = true;
     this.setForm();
   }
 
@@ -257,10 +258,9 @@ export class IaFormPageFourComponent implements OnInit {
       summary: 'Success',
       detail: 'Successfully Updated Details',
     });
-    
   }
 
-  errorMessage(){
+  errorMessage() {
     this.messageService.add({
       severity: 'error',
       summary: 'Failed',
@@ -268,7 +268,7 @@ export class IaFormPageFourComponent implements OnInit {
     });
   }
 
-  infoMessage(){
+  infoMessage() {
     this.messageService.add({
       severity: 'info',
       summary: 'Save!',
