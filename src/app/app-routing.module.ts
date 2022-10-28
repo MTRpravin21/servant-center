@@ -15,7 +15,7 @@ const routes: Routes = [
       import('./case-worker/case-worker.module').then(
         (m) => m.CaseWorkerModule
       ),
-    canActivate: [CaseWorkerGuard],
+   canActivate: [CaseWorkerGuard],
   },
   {
     path: 'veteran',

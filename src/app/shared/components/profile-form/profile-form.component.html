@@ -21,7 +21,7 @@
         id="Intake DOB"
         class="form-container__disable"
         placeholder="Intake DOB(mm/dd/yyyy)"
-        value="{{veteran?.intake_date | date:'dd/MM/yyyy'}}"
+        value="{{veteran?.intake_date | date:'MM/dd/yyyy'}}"
         pInputText
       />
     </div>
@@ -31,6 +31,7 @@
         id="Case Manager"
         type="text"
         class="form-container__disable"
+        value="{{ veteran?.case_worker_nick_name }}"
         pInputText
       />
     </div>

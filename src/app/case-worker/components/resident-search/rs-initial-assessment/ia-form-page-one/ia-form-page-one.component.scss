@@ -8,6 +8,10 @@
 .famButton{
   background-color: green;
   border: none;
+  cursor: pointer;
+}
+.famButton:disabled{
+  background-color: grey;
 }
 .famButton:hover{
   background-color: white;
@@ -18,11 +22,15 @@
   background-color: red;
   border: none;
   text-align: center;
+  cursor: pointer;
 }
 .famButtonR:hover{
   background-color: white;
   color: red;
   text-align: center;
+}
+.famButtonR:disabled{
+  background-color: grey;
 }
 
 .famButtonE{
@@ -36,14 +44,24 @@
   background-color: white;
   color: orange;
 }
-
+.famButtonE:disabled{
+  background-color: grey;
+}
 .famButtonCancel{
-  background-color: lightgray;
-  color: black;
+  background-color: red;
+  color: white;
   border: none;
 }
 
 .famButtonCancel:hover{
   background-color: white;
-  color: black;
+  color: red;
+}
+
+.editBox{
+  width: 50px;
+}
+
+.editCell{
+  width: 50px;
 }

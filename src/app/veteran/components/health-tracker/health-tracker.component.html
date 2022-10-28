@@ -125,6 +125,8 @@
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" Pound" 
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('weight.measurement')?.errors?.required && healthTrackerForm.get('weight.measurement')?.touched">Measurement
@@ -181,6 +183,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" F" 
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('temperature.measurement')?.errors?.required && healthTrackerForm.get('temperature.measurement')?.touched">Measurement
@@ -237,6 +241,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  [dropSpecialCharacters]="false"
+                  mask="0*/0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('bloodPressure.measurement')?.errors?.required && healthTrackerForm.get('bloodPressure.measurement')?.touched">Measurement
@@ -289,6 +295,7 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('BMI.measurement')?.errors?.required && healthTrackerForm.get('BMI.measurement')?.touched">Measurement
@@ -345,6 +352,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  appNoSpecialSymbols
+                  customAttr="textOnly"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('drugScreen.measurement')?.errors?.required && healthTrackerForm.get('drugScreen.measurement')?.touched">Measurement
@@ -401,6 +410,9 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" %" 
+                  [dropSpecialCharacters]="false"
+                  mask="0*.0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('breathalyzer.measurement')?.errors?.required && healthTrackerForm.get('breathalyzer.measurement')?.touched">Measurement
@@ -457,6 +469,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" mg/dl" 
+                  mask="000"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('bloodSugar.measurement')?.errors?.required && healthTrackerForm.get('bloodSugar.measurement')?.touched">Measurement
@@ -578,9 +592,9 @@ is required.</small>
       <p-table [columns]="cols" [value]="tableWeightValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
+                <th>Date</th>
+                <th>Measurement<small>(Pound)</small></th>
+                <th>Comment</th>
             </tr>
           </ng-template>
           <ng-template  pTemplate="body" let-rowData let-columns="columns">
@@ -606,11 +620,11 @@ is required.</small>
     </div>
     <p-table [columns]="cols" [value]="tableTemperatureValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
       <ng-template pTemplate="header" let-columns>
-          <tr>
-              <th *ngFor="let col of columns">
-                  {{col.header}}
-              </th>
-          </tr>
+        <tr>
+          <th>Date</th>
+          <th>Measurement<small>(F)</small></th>
+          <th>Comment</th>
+        </tr>
         </ng-template>
         <ng-template  pTemplate="body" let-rowData let-columns="columns">
           <tr>
@@ -693,11 +707,11 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBreathalyzerValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+      <tr>
+        <th>Date</th>
+        <th>Measurement<small>(%)</small></th>
+        <th>Comment</th>
+      </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
         <tr>
@@ -722,11 +736,11 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBloodSugarValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+      <tr>
+        <th>Date</th>
+        <th>Measurement<small>(mg/dl)</small></th>
+        <th>Comment</th>
+      </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
         <tr>

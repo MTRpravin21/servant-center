@@ -30,38 +30,38 @@
         <span class="label-title">Nick Name</span>
         <input type="text" pInputText formControlName=nickName placeholder="Nick Name">
       </div>
-      <div class="p-field p-col-12 p-md-6">
+      <div class="p-field p-col-12 p-md-5">
         <span class="label-title">Date of Birth<span style="color: red;">*</span></span>
-        <!-- <input type="text" pInputText formControlName=dob placeholder="DateOfBirth" [readonly]="true"> -->
-        <p-calendar formControlName=dob [inline]=false [showIcon]=true placeholder="Date" [required]="true"></p-calendar>
+        <input type="text" pInputText formControlName=dob placeholder="DateOfBirth" [readonly]="true">
+        <!-- <p-calendar formControlName=dob [inline]=false [showIcon]=true placeholder="Date" [required]="true"></p-calendar> -->
         <small class="error" *ngIf="iaPage1PD.dob.errors?.required && iaPage1PD.dob.touched">Date of birth is
           required.</small>
       </div>
-      <div class="p-field p-col-12 p-md-6">
+      <div class="p-field p-col-12 p-md-5">
         <span class="label-title">Place of Birth<span style="color: red;">*</span></span>
         <input type="text" pInputText formControlName=placeOfBirth placeholder="Place of birth" [required]="true">
         <small class="error" *ngIf="iaPage1PD.placeOfBirth.errors?.required && iaPage1PD.placeOfBirth.touched">Place of
           birth is required.</small>
       </div>
-      <div class="p-field p-col-12 p-md-4">
+      <div class="p-field p-col-12 p-md-2">
+        <span class="label-title">Age</span>
+        <input type="number" pInputText formControlName=age placeholder="Age" [readOnly]=true>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
         <span class="label-title">#SSN<span style="color: red;">*</span></span>
         <input type="text" pInputText formControlName=ssn placeholder="SSN" [required]="true">
         <small class="error" *ngIf="iaPage1PD.ssn.errors?.required && iaPage1PD.ssn.touched">SSN is required.</small>
       </div>
-      <div class="p-field p-col-12 p-md-4">
+      <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Primary phone</span>
         <input type="text" pInputText formControlName=primaryPhone placeholder="Primary Phone">
         <small class="error" *ngIf="iaPage1PD.primaryPhone.errors?.required && iaPage1PD.primaryPhone.touched">Phone
           number is required.</small>
       </div>
-      <div class="p-field p-col-12 p-md-4">
-        <span class="label-title">Age</span>
-        <input type="text" pInputText formControlName=age placeholder="Age" [readOnly]=true>
-      </div>
       <div class="p-col-12 p-formgroup-inline">
         <label class="p-mr-3 radiobutton-group-label">Sex<span style="color: red;">*</span></label>
         <div *ngFor="let gender of genderList; let i = index" class="p-field-radiobutton">
-          <p-radioButton name="sex" formControlName=sex [value]=gender.value inputId="gender{{i}}" [disabled]="true" [required]="true">
+          <p-radioButton name="sex" formControlName=sex [value]=gender.value inputId="gender{{i}}" [required]="true">
           </p-radioButton>
           <label for="gender{{i}}" class="p-ml-3">{{gender.label}}</label>
         </div>
@@ -70,7 +70,7 @@
         <label class="p-mr-3 radiobutton-group-label">Marital Status<span style="color: red;">*</span></label>
         <div *ngFor="let maritalStatus of maritalStatusList; let i = index" class="p-field-radiobutton">
           <p-radioButton name="maritalStatus" formControlName=maritalStatus [value]=maritalStatus.value
-            inputId="maritalStatus{{i}}" [disabled]="true" [required]="true"></p-radioButton>
+            inputId="maritalStatus{{i}}" [required]="true"></p-radioButton>
           <label for="maritalStatus{{i}}" class="p-ml-3">{{maritalStatus.label}}</label>
         </div>
       </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Address Line 2</span>
-        <input type="text" pInputText formControlName=addressLine2 placeholder="Address Line" [required]="true">
+        <input type="text" pInputText formControlName=addressLine2 placeholder="Address Line">
       </div>
       <div class="p-field p-col-12 p-md-3">
         <span class="label-title">City<span style="color: red;">*</span></span>
@@ -278,12 +278,12 @@
     </div>
     <h3>Social and Family History <i>( <span style="color: red;">*</span> mandatory fields)</i></h3>
     <h4>Family Members Details:
-      <button type="button" pButton class="famButton p-mr-2" (click)="addNew()">+New Member</button>
+      <button type="button" pButton class="famButton p-mr-2" (click)="addNew()" [disabled]="this.cancelUpdateButton">+New Member</button>
     </h4>
     <div class="p-fluid p-formgrid p-grid" formGroupName="familyMembers" *ngIf="addNewMember">
       <div class="p-field p-col-12 p-md-2">
         <span class="label-title">Name<span style="color: red;">*</span></span>
-        <input type="text" pInputText formControlName=name placeholder="Name">
+        <input type="text" pInputText formControlName=name placeholder="Name" [required]="true">
         <!-- <div>{{ fDetails.name }}</div> -->
       </div>
       <div class="p-field p-col-12 p-md-1">
@@ -295,10 +295,10 @@
         <input type="text" pInputText formControlName=relationship placeholder="Relationship" [required]="true">
       </div>
       <div class="p-field p-col-12 p-md-2">
-        <span class="label-title">Living Status<span style="color: red;">*</span></span>
+        <span class="label-title">Living Status</span>
         <!-- <input type="text" pInputText formControlName=living placeholder="Status"> -->
         <p-dropdown [options]="livingStatus" formControlName="living" placeholder="Select Status" optionLabel="label"
-          optionValue="value" [showClear]="true" [required]="true"></p-dropdown>
+          optionValue="value" [showClear]="true"></p-dropdown>
       </div>
       <div class="p-field p-col-12 p-md-2">
         <span class="label-title">Location</span>
@@ -314,11 +314,11 @@
           (click)="cancelNewMember()">Cancel</button>
       </div>
     </div>
-    <p-table [value]="familyDetails">
+    <p-table #table [value]="familyDetails">
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Age</th>
+          <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="age">Age<p-sortIcon field="age"></p-sortIcon></th>
           <th>Relationship</th>
           <th>Status</th>
           <th>Location</th>
@@ -337,7 +337,7 @@
           </td>
           <td>
             <div *ngIf="product.isEdit" formGroupName="familyMembers">
-              <input type="text" pInputText name="age" [(ngModel)]=product.age formControlName=age />
+              <input type="number" min="1" pInputText name="age" [(ngModel)]=product.age formControlName=age class="editCell"/>
             </div>
             <div *ngIf="!product.isEdit">
               {{product.age}}
@@ -376,12 +376,12 @@
               <button pButton type="button" class="famButton p-mr-1"
                 (click)="updateFamMembersDetails(product.veteran_id,product.veteran_family_id)">Update</button>
               <button pButton type="button" class="famButtonCancel p-ml-1"
-                (click)="product.isEdit = false">Cancel</button>
+                (click)="product.isEdit = false; cancelUpdate()">Cancel</button>
             </div>
             <div *ngIf="!product.isEdit">
-              <button pButton type="button" class="famButtonE p-mr-1" (click)="onEdit(product)">Edit</button>
+              <button pButton type="button" class="famButtonE p-mr-1" (click)="onEdit(product)" [disabled]="this.cancelUpdateButton">Edit</button>
               <button pButton type="button" class="famButtonR p-ml-1"
-                (click)="deleteMember(product.veteran_id,product.veteran_family_id)">Delete</button>
+                (click)="deleteMember(product.veteran_id,product.veteran_family_id)" [disabled]="this.cancelUpdateButton">Delete</button>
             </div>
           </td>
         </tr>

@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IaPage1Service } from 'src/app/case-worker/services/ia-page1.service';
 import { ClipBoardService } from 'src/app/shared/services/clip-board.service';
 import { MessageService } from 'primeng/api';
 import { livingStatus } from 'src/app/veteran/app.constants';
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-ia-form-page-one',
   templateUrl: './ia-form-page-one.component.html',
@@ -24,6 +25,7 @@ export class IaFormPageOneComponent implements OnInit {
   age: any;
   dateofbirth: any;
   hivTestDate: any;
+  cancelUpdateButton: boolean = false;
   stdTestDate: any;
   submitted: boolean = false;
   page1Form!: FormGroup;
@@ -118,8 +120,12 @@ export class IaFormPageOneComponent implements OnInit {
   }
 
   getFamilyMembers() {
+    this.ia1 = true;
+      this.greyingOut = true;
     this.familyDetails = [];
     this.service.getIAPage1FD(this.selecteVetId).subscribe((result) => {
+      this.ia1 = false;
+      this.greyingOut = false;
       this.details = result;
       if(this.details.length == 0){
         this.hasFamMembers = true;
@@ -436,8 +442,6 @@ export class IaFormPageOneComponent implements OnInit {
   onSubmit() {
     this.ia1 = true;
     this.greyingOut = true;
-    let jobType = this.incomeAndResources.value.type;
-    this.incomeAndResources.value.type = '{' + jobType + '}';
     let neededBeni = this.incomeAndResources.value.applyingBenefits;
     let othMedBenifits = this.incomeAndResources.value.othMedCoverage;
     this.incomeAndResources.value.applyingBenefits = '{' + neededBeni + '}';
@@ -565,6 +569,8 @@ export class IaFormPageOneComponent implements OnInit {
   userArray: any;
 
   onEdit(item: any) {
+    this.cancelUpdateButton = true;
+    this.addNewMember = false;
     this.userArray.forEach((element: { isEdit: boolean }) => {
       element.isEdit = false;
     });
@@ -594,6 +600,9 @@ export class IaFormPageOneComponent implements OnInit {
           this.greyingOut = false;
           this.errorMessage();
         }
+        this.table.sortOrder = 0;
+        this.table.sortField = '';
+        this.table.reset();
       });
     } else{
       this.ia1 = false;
@@ -624,9 +633,9 @@ export class IaFormPageOneComponent implements OnInit {
         this.clearFields();
         this.hasFamMembers = false;
       } else if (data.responseStatus === 'FAILURE') {
-        this.errorMessage();
         this.ia1 = false;
         this.greyingOut = false;
+        this.errorMessage();
       }
     });
   }
@@ -634,7 +643,23 @@ export class IaFormPageOneComponent implements OnInit {
     this.addNewMember = false;
   }
 
+  @ViewChild('table')
+  table!: Table;
+  cancelUpdate(){
+    this.ia1 = true;
+    this.greyingOut = true;
+    setTimeout(() => {
+      this.getFamilyMembers();
+    }, 500);
+    this.clearFields();
+    this.cancelUpdateButton = false;
+    this.table.sortOrder = 0;
+    this.table.sortField = '';
+    this.table.reset();
+  }
+
   updateFamMembersDetails(vetId: number, memId: number) {
+    this.cancelUpdateButton = false;
     console.log('update member', this.familyMembers.value);
     console.log(vetId, memId);
     this.ia1 = true;

@@ -14,37 +14,37 @@
           <p-calendar type="text" formControlName=date placeholder="Date"></p-calendar>
         </div> -->
         <div class="p-field p-col-12 p-md-6">
-          <span class="label-title">Date</span>
+          <span class="label-title">Date<span style="color: red;">*</span></span>
           <!-- <input pInputText formControlName="date" type="date" placeholder="date"> -->
-          <p-calendar formControlName=date [inline]=false [showIcon]=true placeholder="Date"></p-calendar>
+          <p-calendar formControlName=date [inline]=false [showIcon]=true placeholder="Date" [required]="true"></p-calendar>
           <!-- <small class="error" *ngIf="iaPage2MA.date.errors?.required && iaPage2MA.date.touched">Orientation date is required.</small> -->
         </div>
         <div class="p-field p-col-12 p-md-6">
-          <span class="label-title">Time</span>
-          <input pInputText formControlName="time" type="time" placeholder="Time">
+          <span class="label-title">Time<span style="color: red;">*</span></span>
+          <input pInputText formControlName="time" type="time" placeholder="Time" [required]="true">
           <!-- <p-calendar formControlName="time" [timeOnly]="true" [showTime]="true" placeholder="Time" [showIcon]="true"
             icon="pi pi-angle-down" class="input-cal"></p-calendar> -->
             <small class="error" *ngIf="iaPage2MA.time.errors?.required && iaPage2MA.time.touched">Orientation time is required.</small>
         </div>
         <div class="p-field p-col-12 p-md-6">
-          <span class="label-title">Place</span>
-          <input type="text" pInputText formControlName=place placeholder="Place">
+          <span class="label-title">Place<span style="color: red;">*</span></span>
+          <input type="text" pInputText formControlName=place placeholder="Place" [required]="true">
           <small class="error" *ngIf="iaPage2MA.place.errors?.required && iaPage2MA.place.touched">Orientation place is required.</small>
         </div>
         <div class="p-field p-col-12 p-md-6">
-          <span class="label-title">Person</span>
-          <input type="text" pInputText formControlName=person placeholder="Person">
+          <span class="label-title">Person<span style="color: red;">*</span></span>
+          <input type="text" pInputText formControlName=person placeholder="Person" [required]="true">
           <small class="error" *ngIf="iaPage2MA.person.errors?.required && iaPage2MA.person.touched">Orientation person is required.</small>
         </div>
       </div>
-      <h4>General Appearance</h4>
+      <h4>General Appearance<span style="color: red;">*</span></h4>
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-col-12 p-formgroup-inline">
           <div class="p-field-checkbox" *ngFor="let generalAppearance of generalAppearanceList">
             <label for="{{generalAppearance.value}}--answered">{{generalAppearance.label}}</label>
             <p-checkbox inputId="{{generalAppearance.value}}--answered" [name]=generalAppearance.value
               [value]=generalAppearance.value formControlName="generalAppearance"
-              [(ngModel)]="selectedgeneralAppearance"></p-checkbox>
+              [(ngModel)]="selectedgeneralAppearance" [required]="true"></p-checkbox>
           </div>
           <small class="error" *ngIf="iaPage2MA.generalAppearance.errors?.required && iaPage2MA.generalAppearance.touched">General appearance is required.</small>
         </div>

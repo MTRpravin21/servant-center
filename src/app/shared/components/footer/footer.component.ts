@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { VeteranprofileService } from 'src/app/veteran/services/veteranprofile.service';
-import { VeteranProfileResponse } from '../../models/VeteranProfileResponse';
-import { ClipBoardService } from '../../services/clip-board.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -9,25 +6,10 @@ import { ClipBoardService } from '../../services/clip-board.service';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  public veteranData: any;
-  veteran_id!:number;
-  public phone: any;
-  constructor(
-    private service: VeteranprofileService,
-    private cacheData: ClipBoardService,
 
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.veteran_id = this.cacheData.get("veteranId")
-    // this.service
-    // .getProfileData(this.veteran_id)
-    // .subscribe((data: VeteranProfileResponse) => {
-    //   this.veteranData = data;
-    //   this.phone = this.veteranData.data[0].contact_person_phone
-    //   console.log("Phone--"+ this.phone);
-    // })
-
     console.log('footer component');
   }
   onOpenWhatsApp(){

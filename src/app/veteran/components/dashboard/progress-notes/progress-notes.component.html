@@ -96,7 +96,7 @@
                     <p-inputSwitch [(ngModel)]="progressNote.goalState"
                       (onChange)="changed(progressNote.goalId, progressNote.goalState)" class="open-close-switch">
                     </p-inputSwitch> <span class="p-ml-2">Complete</span>
-                    <div class="p-col-12 goal-header p-d-flex p-jc-end">
+                    <div class="p-col-12 goal-header--date p-d-flex p-jc-end">
                       <div class="goal-header--date">
                         Added on: {{ progressNote.addedDate | date: 'dd/MM/yyyy'}}
                       </div>
