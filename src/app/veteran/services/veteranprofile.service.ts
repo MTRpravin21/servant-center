@@ -64,6 +64,6 @@ export class VeteranprofileService {
    }
 
    getSecreteManagerData():Observable<any> {
-    return this.http.get(this.commonUrl+'getSecret');
+    return this.restcs.get(this.commonUrl+'getSecret');
    }
 }

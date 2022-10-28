@@ -89,7 +89,10 @@
 .search-dialog {
   margin-right: 15px;
 }
-
+.flexmy{
+  display:flex;
+  flex-direction: row;
+}
 @include mobile(){
   .addNotesButton{
     width: 300px;
@@ -101,4 +104,15 @@
     width: 300px; 
     margin-left: 9%;
   }
+
+  .flexig{
+    display: flex;
+    flex-direction: column;
+  }
+.flexmy{
+  position: relative;
+  left: 10%;
+  right: 10%;
+}
+ 
 }
