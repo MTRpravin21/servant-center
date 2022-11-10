@@ -106,7 +106,8 @@ export class WelcomeHeaderComponent implements OnInit {
     } else if (this.userGroup.toUpperCase() === 'CASEWORKER') {
       this.service.getUserData(this.loginId).subscribe((data) => {
         let caseWorkerInfo = data;
-        this.nickName = caseWorkerInfo?.nick_name;
+        this.nickName = caseWorkerInfo[0]?.nick_name;
+        console.log(this.nickName,'caseworker nick name',data)
         let caseWorkerImageName = caseWorkerInfo[0]?.photo;
         console.log('caseworker db photo name', caseWorkerImageName);
         if (caseWorkerImageName === null) {

@@ -14,11 +14,11 @@
     </div>
     <p-table [columns]="cols" [value]="tableWeightValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
       <ng-template pTemplate="header" let-columns>
-          <tr>
-              <th *ngFor="let col of columns">
-                  {{col.header}}
-              </th>
-          </tr>
+        <tr>
+          <th>Date</th>
+          <th>Measurement<small class="table-txt--unit">(Pound)</small></th>
+          <th>Comment</th>
+        </tr>
         </ng-template>
         <ng-template  pTemplate="body" let-rowData let-columns="columns">
           <tr>
@@ -43,11 +43,11 @@
   </div>
   <p-table [columns]="cols" [value]="tableTemperatureValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+      <tr>
+        <th>Date</th>
+        <th>Measurement<small class="table-txt--unit">(F)</small></th>
+        <th>Comment</th>
+      </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
         <tr>
@@ -130,11 +130,11 @@
 </div>
 <p-table [columns]="cols" [value]="tableBreathalyzerValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
   <ng-template pTemplate="header" let-columns>
-      <tr>
-          <th *ngFor="let col of columns">
-              {{col.header}}
-          </th>
-      </tr>
+    <tr>
+      <th>Date</th>
+      <th>Measurement<small class="table-txt--unit">(%)</small></th>
+      <th>Comment</th>
+    </tr>
     </ng-template>
     <ng-template  pTemplate="body" let-rowData let-columns="columns">
       <tr>
@@ -159,11 +159,11 @@
 </div>
 <p-table [columns]="cols" [value]="tableBloodSugarValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
   <ng-template pTemplate="header" let-columns>
-      <tr>
-          <th *ngFor="let col of columns">
-              {{col.header}}
-          </th>
-      </tr>
+    <tr>
+      <th>Date</th>
+      <th>Measurement<small class="table-txt--unit">(mg/dl)</small></th>
+      <th>Comment</th>
+    </tr>
     </ng-template>
     <ng-template  pTemplate="body" let-rowData let-columns="columns">
       <tr>

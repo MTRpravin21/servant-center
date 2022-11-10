@@ -92,7 +92,7 @@
 
       <form [formGroup]="healthTrackerForm" (ngSubmit)="onSubmit()">
         <div class="form-group p-d-flex">
-          <div formGroupName="weight" *ngIf="showWeight" class="p-col-3">
+          <div formGroupName="weight" *ngIf="showWeight" class="p-col-3 form-group--section">
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
                 <div class="title-container" style="background: #971f1f">
@@ -125,6 +125,8 @@
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" Pound" 
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('weight.measurement')?.errors?.required && healthTrackerForm.get('weight.measurement')?.touched">Measurement
@@ -147,7 +149,7 @@ is required.</small>
           <div
             formGroupName="temperature"
             *ngIf="showTemperature"
-            class="p-col-3"
+            class="p-col-3 form-group--section"
           >
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
@@ -181,6 +183,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" F" 
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('temperature.measurement')?.errors?.required && healthTrackerForm.get('temperature.measurement')?.touched">Measurement
@@ -203,13 +207,13 @@ is required.</small>
           <div
             formGroupName="bloodPressure"
             *ngIf="showBloodPressure"
-            class="p-col-3"
+            class="p-col-3 form-group--section"
           >
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
                 <div class="title-container" style="background: #971f1f">
                   <p>
-                    <span>Blood Pressure</span>
+                    <span class="title-container--heading">Blood Pressure</span>
                   </p>
                 </div>
               </div>
@@ -237,6 +241,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  [dropSpecialCharacters]="false"
+                  mask="0*/0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('bloodPressure.measurement')?.errors?.required && healthTrackerForm.get('bloodPressure.measurement')?.touched">Measurement
@@ -256,7 +262,7 @@ is required.</small>
             </div>
           </div>
 
-          <div formGroupName="BMI" *ngIf="showBmi" class="p-col-3">
+          <div formGroupName="BMI" *ngIf="showBmi" class="p-col-3 form-group--section">
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
                 <div class="title-container" style="background: #971f1f">
@@ -289,6 +295,7 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  mask="0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('BMI.measurement')?.errors?.required && healthTrackerForm.get('BMI.measurement')?.touched">Measurement
@@ -311,7 +318,7 @@ is required.</small>
           <div
             formGroupName="drugScreen"
             *ngIf="showDrugScreen"
-            class="p-col-3"
+            class="p-col-3 form-group--section"
           >
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
@@ -345,6 +352,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  appNoSpecialSymbols
+                  customAttr="textOnly"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('drugScreen.measurement')?.errors?.required && healthTrackerForm.get('drugScreen.measurement')?.touched">Measurement
@@ -367,7 +376,7 @@ is required.</small>
           <div
             formGroupName="breathalyzer"
             *ngIf="showBreathalyzer"
-            class="p-col-3"
+            class="p-col-3 form-group--section"
           >
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
@@ -401,6 +410,9 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" %" 
+                  [dropSpecialCharacters]="false"
+                  mask="0*.0*"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('breathalyzer.measurement')?.errors?.required && healthTrackerForm.get('breathalyzer.measurement')?.touched">Measurement
@@ -423,7 +435,7 @@ is required.</small>
           <div
             formGroupName="bloodSugar"
             *ngIf="showBloodSugar"
-            class="p-col-3"
+            class="p-col-3 form-group--section"
           >
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
@@ -457,6 +469,8 @@ is required.</small>
                   pInputText
                   formControlName="measurement"
                   placeholder="Measurement"
+                  suffix=" mg/dl" 
+                  mask="000"
                 />
                 <small class="error"
                 *ngIf="healthTrackerForm.get('bloodSugar.measurement')?.errors?.required && healthTrackerForm.get('bloodSugar.measurement')?.touched">Measurement
@@ -476,7 +490,7 @@ is required.</small>
             </div>
           </div>
 
-          <div formGroupName="other" *ngIf="showOther" class="p-col-3">
+          <div formGroupName="other" *ngIf="showOther" class="p-col-3 form-group--section">
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-12">
                 <div class="title-container" style="background: #971f1f">
@@ -577,14 +591,14 @@ is required.</small>
       </div>
       <p-table [columns]="cols" [value]="tableWeightValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{col.header}}
-                </th>
+            <tr class="table-txt">
+                <th>Date</th>
+                <th>Measurement<small class="table-txt--unit">(Pound)</small></th>
+                <th>Comment</th>
             </tr>
           </ng-template>
           <ng-template  pTemplate="body" let-rowData let-columns="columns">
-            <tr>
+            <tr class="table-txt">
                 <td *ngFor="let col of columns">
                     {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
                 </td>
@@ -606,14 +620,14 @@ is required.</small>
     </div>
     <p-table [columns]="cols" [value]="tableTemperatureValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
       <ng-template pTemplate="header" let-columns>
-          <tr>
-              <th *ngFor="let col of columns">
-                  {{col.header}}
-              </th>
-          </tr>
+        <tr class="table-txt">
+          <th>Date</th>
+          <th>Measurement<small class="table-txt--unit">(F)</small></th>
+          <th>Comment</th>
+        </tr>
         </ng-template>
         <ng-template  pTemplate="body" let-rowData let-columns="columns">
-          <tr>
+          <tr class="table-txt">
               <td *ngFor="let col of columns">
                   {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
               </td>
@@ -635,14 +649,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBloodPressureValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr class="table-txt">
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
         </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>
@@ -664,14 +678,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableDrugScreenValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr class="table-txt">
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
         </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>
@@ -693,14 +707,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBreathalyzerValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+      <tr class="table-txt">
+        <th>Date</th>
+        <th>Measurement<small class="table-txt--unit">(%)</small></th>
+        <th>Comment</th>
+      </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>
@@ -722,14 +736,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBloodSugarValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{col.header}}
-            </th>
-        </tr>
+      <tr class="table-txt">
+        <th>Date</th>
+        <th>Measurement<small class="table-txt--unit">(mg/dl)</small></th>
+        <th>Comment</th>
+      </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>
@@ -751,14 +765,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableBmiValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr class="table-txt">
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
         </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>
@@ -780,14 +794,14 @@ is required.</small>
   </div>
   <p-table [columns]="cols" [value]="tableOtherValues" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="120px" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr class="table-txt">
             <th *ngFor="let col of columns">
                 {{col.header}}
             </th>
         </tr>
       </ng-template>
       <ng-template  pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr class="table-txt">
             <td *ngFor="let col of columns">
                 {{col.date ? (rowData[col.field]| date : col.format) : rowData[col.field]}}
             </td>

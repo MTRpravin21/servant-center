@@ -22,7 +22,7 @@ export class IaPage5Service {
     return this.restcs.get(this.commonUrl+'initialAssessment/page-5/'+endPoint);
     } else{
       //env api goes here
-      return this.restcs.post(this.getInitialTreatmentPage+endPoint);
+      return this.restcs.get(this.getInitialTreatmentPage+endPoint);
     }
 }
 

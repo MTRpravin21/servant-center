@@ -886,7 +886,7 @@
           </div>
         </div>
 
-        <button type="submit" pButton label="Submit" class="p-button"></button>
+        <button type="submit" pButton label="Submit" [disabled]="!this.treatmentPlanForm.touched" class="p-button"></button>
         <p-button
           label="Cancel"
           styleClass="p-button-link"

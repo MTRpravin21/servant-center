@@ -1,3 +1,4 @@
+<p-toast position="top-center"></p-toast>
 <div *ngIf="grayOut" id="overlay">
   <div class="center-spinner">
     <p-progressSpinner *ngIf="showSpinner" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
@@ -65,13 +66,19 @@
       <div class="p-d-flex p-jc-end p-mr-2">
         <button
           pButton
-          type="submit"
           label="Submit"
           class="submit-button"
           (click)="onSubmit(residentSearchForm.value)"
           [disabled]="residentSearchForm.invalid"
           [ngClass]="residentSearchForm.invalid?'p-button-outlined p-button-disabled':'p-button-outlined'"
         ></button>
+        <button
+          pButton
+          label="Add New Veteran"
+          class="add-new"
+          (click)="addnew()"
+        >
+        </button>
         <button
           pButton
           icon="fa fa-sync-alt"
@@ -84,7 +91,7 @@
   <div *ngIf="isVeteranFound" class="m-2" >
     <p style="color:white ;text-align: right; margin-right: 20px;" > No veteran found! Please try again with another name! </p>
   </div>
-  <div class="result-table">
+  <div *ngIf="!addNewVeteran" class="result-table">
     <p-table
       [value]="tableValues"
       selectionMode="single"
@@ -108,8 +115,217 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-  <div class="resident-detail" *ngIf="selectedResident">
+  </div><br>
+  <!-- Add new vetern page starts -->
+  <div *ngIf="addNewVeteran">
+    <div class="page1-form-container p-mt-4"> <br><br>
+      <form [formGroup]="personalDetails" (ngSubmit)="saveForm()" *ngIf="personalDetails" ngNativeValidate>
+          <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-3">
+              <span class="label-title">Select Caseworker<span style="color: red;">*</span></span>
+              <p-dropdown [options]="cwNickName" placeholder="Select" formControlName="caseWorkerId" optionLabel="label"
+                optionValue="value" [showClear]="true" [required]="true"></p-dropdown>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+              <span class="label-title">UserName<span style="color: red;">*</span></span>
+              <input type="text" [required]="true" name="caseWorkerUserName" minlength="8" maxlength="12" pInputText
+                formControlName=caseWorkerUserName placeholder="UserName" #username (blur)='validateCWUserName(username)'>
+              <small class="error"
+                *ngIf="iaPage1PD.caseWorkerUserName.errors?.required && iaPage1PD.caseWorkerUserName.touched">Username is
+                required.</small>
+              <small class="error" *ngIf="iaPage1PD.caseWorkerUserName.errors?.['minlength']">Username should be 8 to 12
+                characters.</small>
+              <small class="error" *ngIf="usernameInvalid">Username already exists.</small>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <span class="label-title">Record#</span>
+              <input type="number" pInputText formControlName=recordNo placeholder="Record Number" [required]="true">
+              <small class="error" *ngIf="iaPage1PD.recordNo.errors?.required && iaPage1PD.recordNo.touched">Record No is
+                required.</small>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <span class="label-title">Intake Date<span style="color: red;">*</span></span>
+              <p-calendar formControlName=intakeDate [inline]=false [showIcon]=true placeholder="Intake date(mm/dd/yyyy)" [required]="true"></p-calendar>
+              <small class="error" *ngIf="iaPage1PD.intakeDate.errors?.required && iaPage1PD.intakeDate.touched">Intake date is
+                required.</small>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+              <span class="label-title">HMIS ID</span>
+              <input type="number" pInputText formControlName=hmisId placeholder="HMIS Id" [required]="true">
+              <small class="error" *ngIf="iaPage1PD.hmisId.errors?.required && iaPage1PD.hmisId.touched">HMIS Id is
+                required.</small>
+            </div>
+          </div>
+        <h3>Personal Details <i>( <span style="color: red;">*</span> mandatory fields)</i></h3>
+        <div class="p-fluid p-formgrid p-grid" >
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">First Name<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=pFirstName placeholder="First Name" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.pFirstName.errors?.required && iaPage1PD.pFirstName.touched">First name is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">Middle Initial</span>
+            <input type="text" pInputText formControlName=middleInitial placeholder="Middle Initial">
+            <small class="error" *ngIf="iaPage1PD.middleInitial.errors?.required && iaPage1PD.middleInitial.touched">Middle
+              initial is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">Last Name<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=pLastName placeholder="Last Name" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.pLastName.errors?.required && iaPage1PD.pLastName.touched">Last name is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">Nick Name<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=nickName placeholder="Nick Name" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.nickName.errors?.required && iaPage1PD.nickName.touched">Nick Name is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Date of Birth<span style="color: red;">*</span></span>
+            <p-calendar formControlName=pdob [inline]=false [showIcon]=true placeholder="DOB(mm/dd/yyyy)" [required]="true"></p-calendar>
+            <small class="error" *ngIf="iaPage1PD.pdob.errors?.required && iaPage1PD.pdob.touched">Date of birth is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Place of Birth<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=placeOfBirth placeholder="Place of birth" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.placeOfBirth.errors?.required && iaPage1PD.placeOfBirth.touched">Place of
+              birth is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">#SSN<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=ssn placeholder="SSN(number)" minlength="9" maxlength="9" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.ssn.errors?.required && iaPage1PD.ssn.touched">SSN is required.</small>
+            <small class="error" *ngIf="iaPage1PD.ssn.errors?.['minlength']">SSN should be number and 9 digits.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Primary phone</span>
+            <input type="number" pInputText formControlName=primaryPhone placeholder="Primary Phone">
+            <small class="error" *ngIf="iaPage1PD.primaryPhone.errors?.required && iaPage1PD.primaryPhone.touched">Phone
+              number is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Email</span>
+            <input type="text" pInputText formControlName=email placeholder="Email" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.email.errors?.required && iaPage1PD.email.touched">Email is
+              required.</small>
+          </div>
+          <div class="p-col-12 p-formgroup-inline">
+            <label class="p-mr-3 radiobutton-group-label">Sex<span style="color: red;">*</span></label>
+            <div *ngFor="let gender of genderList; let i = index" class="p-field-radiobutton">
+              <p-radioButton name="sex" formControlName=sex [value]=gender.value inputId="gender{{i}}" [disabled]=false [required]="true">
+              </p-radioButton>
+              <label for="gender{{i}}" class="p-ml-3">{{gender.label}}</label>
+            </div>
+          </div>
+          <div class="p-col-12 p-formgroup-inline">
+            <label class="p-mr-3 radiobutton-group-label">Marital Status<span style="color: red;">*</span></label>
+            <div *ngFor="let maritalStatus of maritalStatusList; let i = index" class="p-field-radiobutton">
+              <p-radioButton name="maritalStatus" formControlName=maritalStatus [value]=maritalStatus.value
+                inputId="maritalStatus{{i}}" [disabled]=false [required]="true"></p-radioButton>
+              <label for="maritalStatus{{i}}" class="p-ml-3">{{maritalStatus.label}}</label>
+            </div>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Race<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=race placeholder="Race" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.race.errors?.required && iaPage1PD.race.touched">Race is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Primary Language<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=primaryLanguage placeholder="Primary language" [required]="true">
+            <small class="error"
+              *ngIf="iaPage1PD.primaryLanguage.errors?.required && iaPage1PD.primaryLanguage.touched">Primary language is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Religious preference<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=religiousPreferences placeholder="Religious preference" [required]="true">
+            <small class="error"
+              *ngIf="iaPage1PD.religiousPreferences.errors?.required && iaPage1PD.religiousPreferences.errors?.touched">Religious
+              preference is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Address Main<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=addressMain placeholder="Address Main" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.addressMain.errors?.required && iaPage1PD.addressMain.touched">Main
+              address is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Address Line 2</span>
+            <input type="text" pInputText formControlName=addressLine2 placeholder="Address Line" >
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">City<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=city placeholder="City" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.city.errors?.required && iaPage1PD.city.touched">City is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">Country<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=country placeholder="Country" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.country.errors?.required && iaPage1PD.country.touched">Country is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">Zip Code<span style="color: red;">*</span></span>
+            <input type="number" pInputText formControlName=zipcode placeholder="Zip Code" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.zipcode.errors?.required && iaPage1PD.zipcode.touched">Zipcode is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <span class="label-title">State<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=state placeholder="state" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.state.errors?.required && iaPage1PD.state.touched">State is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Contact Person<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=contactPerson placeholder="Contact Person" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.contactPerson.errors?.required && iaPage1PD.contactPerson.touched">Contact
+              person name is required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Contact Person's Relationship<span style="color: red;">*</span></span>
+            <input type="text" pInputText formControlName=relationship placeholder="Relationship" [required]="true">
+            <small class="error"
+              *ngIf="iaPage1PD.relationship.errors?.required && iaPage1PD.relationship.touched">Relationship is
+              required.</small>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Contact Person's Address</span>
+            <input type="text" pInputText formControlName=contactPersonAddress placeholder="Contact Person's Address">
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <span class="label-title">Contact Person's Phone<span style="color: red;">*</span></span>
+            <input type="number" pInputText formControlName=phone placeholder="Contact Person's Phone" [required]="true">
+            <small class="error" *ngIf="iaPage1PD.phone.errors?.required && iaPage1PD.phone.touched">Phone is
+              required.</small>
+          </div>
+          <!-- consent -->
+          <div class="p-field p-md-6">
+            <div class="p-col-12 p-formgroup-inline">
+              <label class="p-mr-3 radiobutton-group-label">Consent: <span style="color: red;">*</span></label>
+              <div *ngFor="let consent of consent; let i = index" class="p-field-radiobutton">
+                <p-radioButton name="consent" formControlName=consent [value]=consent.value inputId="consent{{i}}"
+                  [disabled]=false [required]="true"></p-radioButton>
+                <label for="consent{{i}}" class="p-ml-3">{{consent.label}}</label>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="p-d-flex button-container p-mt-4">
+          <div class="p-jc-start">
+            <button type="submit" pButton label="Save" ></button>
+            <button type="button" pButton label="Cancel" (click)="resetForm()" class="p-button-outlined p-ml-3"></button>
+          </div>
+        </div>
+      </form>
+  </div>  
+</div>
+<div *ngIf="!addNewVeteran">
+  <div class="resident-detail" *ngIf="selectedResident && isVeteranSelected">
     <div class="search-header-details"><span>DETAILS </span></div>
     <div class="resident-detail-container card">
       <p-card>
@@ -149,12 +365,11 @@
         </div>
       </p-card>
     </div>
-
-    <!-- <br><br><br><br> -->
-
-    <div class="p-mt-4 resident-search-nav">
-      <p-tabMenu [model]="tabMenuItems"></p-tabMenu>
-      <router-outlet></router-outlet>
+    
+      <div class="p-mt-4 resident-search-nav">
+        <p-tabMenu [model]="tabMenuItems"></p-tabMenu>
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
