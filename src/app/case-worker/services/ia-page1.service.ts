@@ -13,6 +13,8 @@ export class IaPage1Service {
   private postIAPage1Details = env.serviceUrl.postIAPage1Details;
   private getFamilyMembersDetails = env.serviceUrl.getFamilyMembersDetails;
   private postFamilyMembersDetails = env.serviceUrl.postFamilyMembersDetails;
+  private getCwNicknameDetails = env.serviceUrl.getCwNicknameDetails;
+  private getCwUserNameDetails = env.serviceUrl.getCwUserNameDetails;
   private updateFamilyMembersDetails =
     env.serviceUrl.updateFamilyMembersDetails;
   private deleteFamilyMembersDetails =
@@ -21,6 +23,14 @@ export class IaPage1Service {
   private commonUrl = environment.localUrl;
   private isDev = isDevMode();
 
+  public getCwNickName(): Observable<any>{
+      if(this.isDev){
+      return this.restcs.get(this.commonUrl+ 'getCaseWorkerNickname');
+    } else {
+      return this.restcs.get(this.getCwNicknameDetails);
+    }
+  }
+  
   public getIAPage1(vetID: number): Observable<any> {
     if (this.isDev) {
       return this.restcs.get(

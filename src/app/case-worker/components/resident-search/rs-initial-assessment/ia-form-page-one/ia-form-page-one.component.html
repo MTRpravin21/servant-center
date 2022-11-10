@@ -6,6 +6,13 @@
 </div>
 <div class="page1-form-container p-mt-4">
   <form [formGroup]="page1Form" (ngSubmit)="onSubmit()" *ngIf="page1Form" ngNativeValidate>
+    <div class="p-fluid p-formgrid p-grid" formGroupName="personalDetails">
+      <div class="p-field p-col-12 p-md-3" >
+        <span class="label-title">Select Caseworker<span style="color: red;">*</span></span>
+        <p-dropdown [options]="cwNickName" placeholder="Select" formControlName="caseWorkerId"
+        optionLabel="label" optionValue="value" [showClear]="true" [required]="true"></p-dropdown>
+      </div>
+    </div>
     <h3>Personal Details <i>( <span style="color: red;">*</span> mandatory fields)</i></h3>
     <div class="p-fluid p-formgrid p-grid" formGroupName="personalDetails">
       <div class="p-field p-col-12 p-md-3">
@@ -49,12 +56,12 @@
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">#SSN<span style="color: red;">*</span></span>
-        <input type="text" pInputText formControlName=ssn placeholder="SSN" [required]="true">
+        <input type="number" pInputText formControlName=ssn placeholder="SSN" [required]="true">
         <small class="error" *ngIf="iaPage1PD.ssn.errors?.required && iaPage1PD.ssn.touched">SSN is required.</small>
       </div>
       <div class="p-field p-col-12 p-md-6">
         <span class="label-title">Primary phone</span>
-        <input type="text" pInputText formControlName=primaryPhone placeholder="Primary Phone">
+        <input type="number" pInputText formControlName=primaryPhone placeholder="Primary Phone">
         <small class="error" *ngIf="iaPage1PD.primaryPhone.errors?.required && iaPage1PD.primaryPhone.touched">Phone
           number is required.</small>
       </div>
@@ -109,7 +116,7 @@
       </div>
       <div class="p-field p-col-12 p-md-3">
         <span class="label-title">Zip Code<span style="color: red;">*</span></span>
-        <input type="text" pInputText formControlName=zipcode placeholder="Zip Code" [required]="true">
+        <input type="number" pInputText formControlName=zipcode placeholder="Zip Code" [required]="true">
         <small class="error" *ngIf="iaPage1PD.zipcode.errors?.required && iaPage1PD.zipcode.touched">Zipcode is
           required.</small>
       </div>
@@ -284,15 +291,21 @@
       <div class="p-field p-col-12 p-md-2">
         <span class="label-title">Name<span style="color: red;">*</span></span>
         <input type="text" pInputText formControlName=name placeholder="Name" [required]="true">
+        <small class="error" *ngIf="famMembers.name.errors?.required && famMembers.name.touched"> Name is
+          required.</small>
         <!-- <div>{{ fDetails.name }}</div> -->
       </div>
       <div class="p-field p-col-12 p-md-1">
-        <span class="label-title">Age</span>
+        <span class="label-title">Age<span style="color: red;">*</span></span>
         <input type="number" min="1" pInputText formControlName=age placeholder="Age">
+        <small class="error" *ngIf="famMembers.age.errors?.required && famMembers.age.touched"> Age is
+          required.</small>
       </div>
       <div class="p-field p-col-12 p-md-2">
         <span class="label-title">Relationship<span style="color: red;">*</span></span>
         <input type="text" pInputText formControlName=relationship placeholder="Relationship" [required]="true">
+        <small class="error" *ngIf="famMembers.relationship.errors?.required && famMembers.relationship.touched"> Relationship is
+          required.</small>
       </div>
       <div class="p-field p-col-12 p-md-2">
         <span class="label-title">Living Status</span>
@@ -301,12 +314,14 @@
           optionValue="value" [showClear]="true"></p-dropdown>
       </div>
       <div class="p-field p-col-12 p-md-2">
-        <span class="label-title">Location</span>
+        <span class="label-title">Location<span style="color: red;">*</span></span>
         <input type="text" pInputText formControlName=location placeholder="Location">
+        <small class="error" *ngIf="famMembers.location.errors?.required && famMembers.location.touched"> Location is
+          required.</small>
       </div>
       <div class="p-field p-col-12 p-md-1">
         <span class="label-title">.</span>
-        <button type="button" pButton class="famButton p-mr-2 text-center" (click)="saveNewMember()">Save</button>
+        <button type="button" pButton class="famButton p-mr-2 text-center" (click)="saveNewMember()" [disabled]="familyMembers.invalid">Save</button>
       </div>
       <div class="p-field p-col-12 p-md-1">
         <span class="label-title">.</span>

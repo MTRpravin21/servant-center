@@ -73,7 +73,6 @@ export class TreatmentPlanComponent implements OnInit {
         veteranSupports: this.data.supports,
         veteranStrengths: this.data.strengths,
         veteranNotes: this.data.notes
-        //treatmentIssues: this.data.treatmentIssues
       });
     });
   }
@@ -250,18 +249,58 @@ export class TreatmentPlanComponent implements OnInit {
     this.grayOut=true;
     const treatmentData= this.treatmentPlanForm.value;
     console.log(treatmentData);
+    this.formatTargetDate();
    this.service.saveTreatmentData(this.vetID,this.treatmentPlanForm.value).subscribe((response) =>{
     if (response.responseStatus === 'SUCCESS') {
       this.showSpinner=false;
       this.grayOut=false;
       this.successMessage();
-      this.refreshpage();
+      setTimeout(() => {
+        this.refreshpage();
+      }, 1500);
     } else if (response.responseStatus === 'FAILURE') {
       this.errorMessage();
     }
   });
    console.log("form submitted successfully");
 }
+
+  formatTargetDate(){
+    let treatmentIssue=this.treatmentPlanForm.value.treatmentIssues[0];
+    for(let i=0;i<treatmentIssue.physicalHealth.length;i++){
+    let targetdate=treatmentIssue.physicalHealth[i].targetDate;
+    treatmentIssue.physicalHealth[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.mentalHealth.length;i++){
+      let targetdate=treatmentIssue.mentalHealth[i].targetDate;
+      treatmentIssue.mentalHealth[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.substanceUse.length;i++){
+        let targetdate=treatmentIssue.substanceUse[i].targetDate;
+        treatmentIssue.substanceUse[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.housing.length;i++){
+      let targetdate=treatmentIssue.housing[i].targetDate;
+      treatmentIssue.housing[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.incomeLegal.length;i++){
+      let targetdate=treatmentIssue.incomeLegal[i].targetDate;
+      treatmentIssue.incomeLegal[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.relationships.length;i++){
+      let targetdate=treatmentIssue.relationships[i].targetDate;
+      treatmentIssue.relationships[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.education.length;i++){
+      let targetdate=treatmentIssue.education[i].targetDate;
+      treatmentIssue.education[i].targetDate=targetdate.toLocaleDateString();
+    }
+    for(let i=0;i<treatmentIssue.benefits.length;i++){
+      let targetdate=treatmentIssue.benefits[i].targetDate;
+      treatmentIssue.benefits[i].targetDate=targetdate.toLocaleDateString();
+    }
+    
+  }
  
   initializeIssuesFormArray() {
     this.issuesArray = this.formBuilder.array([]);

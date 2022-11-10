@@ -38,6 +38,8 @@ export class IaFormPageOneComponent implements OnInit {
   addNewMember: boolean = false;
   famMemberId!: number;
   removeMember: any = [];
+  cwNickName: any[] = [];
+
   everMarried = [
     { label: 'Yes', value: true },
     { label: 'No', value: false },
@@ -111,12 +113,12 @@ export class IaFormPageOneComponent implements OnInit {
   ) {
     this.selecteVetId = this.cacheData.get('selectedResidentVeteranId');
     console.log('sel', this.selecteVetId);
+    this.getCWNickName();
     this.setForm();
     this.livingStatus = livingStatus;
   }
   ngOnInit(): void {
     this.initializeFormGroups();
-    // this.getFamilyMembers();
   }
 
   getFamilyMembers() {
@@ -146,8 +148,7 @@ export class IaFormPageOneComponent implements OnInit {
       this.ia1 = false;
       this.greyingOut = false;
       this.data = res[0];
-      console.log('dob', this.data.date_of_birth);
-
+      console.log('dob', this.data.date_of_birth);      
       this.dateofbirth = this.datepipe.transform(
         this.data.date_of_birth,
         'MM/dd/yyyy'
@@ -177,6 +178,7 @@ export class IaFormPageOneComponent implements OnInit {
       };
       const currAge = getAge(this.age);
       this.buildForm();
+      console.log(this.personalDetails.value)
       if (this.data) {
         this.personalDetails.patchValue({
           firstName: this.data.first_name,
@@ -206,6 +208,7 @@ export class IaFormPageOneComponent implements OnInit {
           religiousPreferences: this.data.religious_preference,
           hobbiesInterests: this.data.hobbies,
           consent: this.data.consent_status,
+          caseWorkerId: this.data.case_worker_id
         });
         this.incomeAndResources.patchValue({
           income: this.data.income,
@@ -279,6 +282,7 @@ export class IaFormPageOneComponent implements OnInit {
           religiousPreferences: null,
           hobbiesInterests: null,
           consent: null,
+          caseWorkerId: null
         });
         this.incomeAndResources.patchValue({
           income: null,
@@ -356,6 +360,8 @@ export class IaFormPageOneComponent implements OnInit {
       religiousPreferences: ['', Validators.required],
       hobbiesInterests: ['', Validators.required],
       consent: ['', Validators.required],
+      caseWorkerId: ['',Validators.required],
+      
     });
     this.incomeAndResources = this.fb.group({
       veteranID: [this.selecteVetId, Validators.required],
@@ -378,12 +384,12 @@ export class IaFormPageOneComponent implements OnInit {
     this.socialAndFamilyHistory = this.fb.group({
       veteranID: [this.selecteVetId, Validators.required],
       mothersFullName: ['', Validators.required],
-      motherAge: [],
-      motherLocation: [],
+      motherAge: ['', Validators.required],
+      motherLocation: ['', Validators.required],
       motherStatus: ['', Validators.required],
       fathersFullName: ['', Validators.required],
-      fatherAge: [],
-      fatherLocation: [],
+      fatherAge: ['', Validators.required],
+      fatherLocation: ['', Validators.required],
       fatherStatus: ['', Validators.required],
       siblings: new FormArray([]),
       everMarried: ['', Validators.required],
@@ -419,8 +425,12 @@ export class IaFormPageOneComponent implements OnInit {
       relationship: ['', Validators.required],
       age: ['', Validators.required],
       location: ['', Validators.required],
-      living: ['', Validators.required],
+      living: [Boolean],
     });
+  }
+
+  get famMembers(){
+    return this.familyMembers.controls;
   }
 
   buildForm() {
@@ -473,9 +483,6 @@ export class IaFormPageOneComponent implements OnInit {
 
         console.log('Submitted');
       });
-    // this.router.navigateByUrl(
-    //   'case-worker/resident-search/initial-assessment/page-2'
-    // );
     console.log('page 1 values', this.page1Form.value);
   }
   next() {
@@ -501,6 +508,15 @@ export class IaFormPageOneComponent implements OnInit {
       age: ['tage', Validators.required],
       location: ['tloc', Validators.required],
     });
+  }
+
+  getCWNickName(){
+    this.service.getCwNickName().subscribe((res)=>{     
+      for(let i=0;i<res.data.length;i++){
+        this.cwNickName.push({label:res.data[i].nick_name, value:res.data[i].case_worker_id || res.data[i].nick_name});
+      }
+        console.log(this.cwNickName);
+      });
   }
 
   addSibling() {
@@ -641,6 +657,7 @@ export class IaFormPageOneComponent implements OnInit {
   }
   cancelNewMember() {
     this.addNewMember = false;
+    this.clearFields();
   }
 
   @ViewChild('table')
@@ -714,6 +731,10 @@ export class livingPipe implements PipeTransform {
     }
     if (value === false) {
       return 'Deceased';
+    }
+
+    if (value === null){
+      return '---';
     }
     return value;
   }

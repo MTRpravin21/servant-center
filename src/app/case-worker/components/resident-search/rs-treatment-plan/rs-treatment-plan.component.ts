@@ -251,7 +251,9 @@ export class RsTreatmentPlanComponent implements OnInit {
     this.formView = false;
     this.showSpinner=true;
     this.grayOut=true;
-    
+    this.formatTIArray();
+    console.log("Form value =>>>>",this.treatmentPlanForm.value);
+    this.formatTargetDate();
     this.service.updateTreatmentPlanData(this.vetID,this.treatmentPlanForm.value).subscribe((response)=>{
       if (response.responseStatus === 'SUCCESS'){
         setTimeout(() => {
@@ -264,7 +266,123 @@ export class RsTreatmentPlanComponent implements OnInit {
         this.errorMessage();
       }
     });
-    console.log("Form value =>>>>",this.treatmentPlanForm.value);  
+  }
+ 
+  formatTargetDate(){
+    let treatmentIssue=this.treatmentPlanForm.value.treatmentIssues[0];
+    for(let i=0;i<treatmentIssue.physicalHealth.length;i++){
+     let targetdate=treatmentIssue.physicalHealth[i].targetDate;
+     if(typeof targetdate != 'string'){
+     treatmentIssue.physicalHealth[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.mentalHealth.length;i++){
+      let targetdate=treatmentIssue.mentalHealth[i].targetDate;
+      if(typeof targetdate != 'string'){
+      treatmentIssue.mentalHealth[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.substanceUse.length;i++){
+        let targetdate=treatmentIssue.substanceUse[i].targetDate;
+        if(typeof targetdate != 'string'){
+          treatmentIssue.substanceUse[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.housing.length;i++){
+      let targetdate=treatmentIssue.housing[i].targetDate;
+      if(typeof targetdate != 'string'){
+        treatmentIssue.housing[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.incomeLegal.length;i++){
+      let targetdate=treatmentIssue.incomeLegal[i].targetDate;
+      if(typeof targetdate != 'string'){
+        treatmentIssue.incomeLegal[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.relationships.length;i++){
+      let targetdate=treatmentIssue.relationships[i].targetDate;
+      if(typeof targetdate != 'string'){
+        treatmentIssue.relationships[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.education.length;i++){
+      let targetdate=treatmentIssue.education[i].targetDate;
+      if(typeof targetdate != 'string'){
+        treatmentIssue.education[i].targetDate=targetdate.toLocaleDateString();}
+    }
+    for(let i=0;i<treatmentIssue.benefits.length;i++){
+      let targetdate=treatmentIssue.benefits[i].targetDate;
+      if(typeof targetdate != 'string'){
+        treatmentIssue.benefits[i].targetDate=targetdate.toLocaleDateString();}
+    }
+  }
+
+  formatTIArray(){
+    this.treatmentArr = this.treatmentPlanForm.get('treatmentIssues')?.value;
+    let physicalHealthData = this.treatmentArr[0].physicalHealth.filter(
+      function (item: any) {
+        if (item.goals != '') {
+          return item;
+        }
+      }
+    );
+    this.treatmentArr[0].physicalHealth = physicalHealthData;
+
+    let mentalHealthData = this.treatmentArr[0].mentalHealth.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].mentalHealth = mentalHealthData;
+
+    let benefitsData = this.treatmentArr[0].benefits.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].benefits = benefitsData;
+
+    let educationData = this.treatmentArr[0].education.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].education = educationData;
+
+    let housingData = this.treatmentArr[0].housing.filter(function (item: any) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].housing = housingData;
+
+    let incomeLegalData = this.treatmentArr[0].incomeLegal.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].incomeLegal = incomeLegalData;
+
+    let relationshipsData = this.treatmentArr[0].relationships.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].relationships = relationshipsData;
+
+    let substanceUseData = this.treatmentArr[0].substanceUse.filter(function (
+      item: any
+    ) {
+      if (item.goals != '') {
+        return item;
+      }
+    });
+    this.treatmentArr[0].substanceUse = substanceUseData;
   }
  
   initializeIssuesFormArray() {

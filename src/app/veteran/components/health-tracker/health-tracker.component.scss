@@ -1,4 +1,5 @@
-  
+@import "src/app/shared/styles/breakpoints.scss";
+
   .form-container {
     margin: 0 15px;
     padding: 20px 20px;
@@ -64,4 +65,23 @@
   .error{
     font-family: "Roboto Medium", "Roboto Regular", "Roboto", sans-serif;
     color: red;
+  }
+
+  @include mobile(){
+    .form-group--section{
+      width: 50%;
+    }
+
+    .table-txt{
+      font-size: 14px;
+      
+    }
+
+    .table-txt--unit{
+      display: block;
+    }
+
+    .title-container--heading{
+      font-size: 15px;
+    }
   }

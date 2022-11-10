@@ -48,6 +48,7 @@
       // font-size: 10px;
       color: #7b7b7b;
       float: right;
+      display: flex;
     }
   }
 }
@@ -76,30 +77,52 @@
   width: 300px;
 }
 
-.error{
+.error {
   color: red;
 }
 
-.inputFromUser.ng-touched.ng-invalid{
+.inputFromUser.ng-touched.ng-invalid {
   border: 1px solid red;
 }
 
-.addNotesButton{
+.addNotesButton {
   margin-left: 12px;
 }
 .search-dialog {
   margin-right: 15px;
 }
+.status {
+  display: flex;
+}
+// .goalStatus{
+//   display: flex;
+// }
 
-@include mobile(){
-  .addNotesButton{
+.flexmy {
+  display: flex;
+  flex-direction: row;
+}
+
+@include mobile() {
+  .addNotesButton {
     width: 300px;
     margin-left: 9%;
     margin-top: 2%;
     margin-bottom: 3%;
   }
+
   .search-dialog {
-    width: 300px; 
+    width: 300px;
     margin-left: 9%;
+  }
+
+  .flexig {
+    display: flex;
+    flex-direction: column;
+    position: static;
+  }
+
+  .flexmy {
+    position: static;
   }
 }

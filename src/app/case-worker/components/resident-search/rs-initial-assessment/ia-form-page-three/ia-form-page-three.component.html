@@ -44,7 +44,7 @@
             <label for="{{generalAppearance.value}}--answered">{{generalAppearance.label}}</label>
             <p-checkbox inputId="{{generalAppearance.value}}--answered" [name]=generalAppearance.value
               [value]=generalAppearance.value formControlName="generalAppearance"
-              [(ngModel)]="selectedgeneralAppearance" [required]="true"></p-checkbox>
+              [(ngModel)]="selectedgeneralAppearance"></p-checkbox>
           </div>
           <small class="error" *ngIf="iaPage2MA.generalAppearance.errors?.required && iaPage2MA.generalAppearance.touched">General appearance is required.</small>
         </div>
